@@ -1,11 +1,31 @@
 ---
 name: cocos-ai-toolkit
-description: Use Black Dolphin Forge to inspect Cocos Creator scene/prefab paths, component schemas/source, scoped Editor changes, runtime UI observations and Web Mobile build jobs through MCP or local CLI.
+description: Choose focused scripts or Black Dolphin Forge for Cocos work. Use the toolkit for node/reference mapping, binding analysis, repeated graph queries, live Editor/runtime operations and managed Web Mobile builds; use direct reads for small known targets.
 ---
 
-Prefer the toolkit for Cocos work: AI → MCP/CLI → kit → owning Cocos process. Direct file/CLI/engine access is allowed when genuinely necessary within the user's authorized task. Explain the reason and verification boundary, then recapture snapshots affected by external changes. This preference is not a filesystem sandbox or a claim that every engine operation is supported.
+Choose the least expensive reliable way to answer the current question. Toolkit use is selective; direct `rg`, source reads and focused JSON scripts are normal options, not exceptional fallbacks. Follow the user's requested tool when specified.
 
-Start with `cocos_describe {}` or describe one operation. Registered availability does not establish that the chosen project/session/version satisfies its preconditions. Read [capabilities.json](references/capabilities.json) only when choosing among operations. Use the installed version's live schema when arguments or availability differ.
+## Choose before connecting
+
+| Need | Preferred route |
+| --- | --- |
+| Known file, text/symbol search, small source excerpt | `rg` or a bounded file read |
+| A few known serialized properties, such as Loading settings or a History bottom-bar Widget | A focused JSON script returning just those fields; resolve local references if needed |
+| Unknown node paths, ambiguous names, component/asset references, cross-node bindings | Toolkit graph/source queries when the mapping adds useful context |
+| Several related questions on a large scene/prefab, especially with an existing valid snapshot | Reuse toolkit snapshot and a persistent MCP connection |
+| Live Editor state, supported Editor changes, runtime UI observations, managed build jobs | Toolkit workflow below, subject to actual capabilities |
+
+Do not start the daemon, register a project, enumerate capabilities or capture a snapshot for a simple direct read. A large file alone does not require the toolkit if a short script can reliably extract the exact answer. Escalate when reference resolution or ambiguity makes the direct result unreliable; do not build a second general graph engine in an ad hoc script. A toolkit snapshot is not a prerequisite to direct inspection.
+
+For either route, return the requested facts with enough path/provenance and relevant warnings to establish correctness. Avoid dumping complete scene JSON, unrelated component properties or repeating full response envelopes. Do not omit unresolved references or coverage limits to make results appear smaller. Direct reads need no routine fallback justification.
+
+## Use the toolkit efficiently
+
+Once the toolkit route is selected, describe the specific operation when its live schema or availability is unknown; use `cocos_describe {}` for broader discovery only when needed. Registered availability does not establish that the chosen project/session/version satisfies its preconditions. Read [capabilities.json](references/capabilities.json) only when choosing among operations.
+
+Prefer a persistent MCP connection over launching a fresh Node CLI process for each query. Capture only the relevant file/source scope, retain snapshot IDs and revisions, and reuse them for related questions while inputs remain unchanged. Recapture affected snapshots after file/Editor changes; never reuse stale results. Inspect only requested fields and page further only when needed to answer the question accurately.
+
+Do not assume the toolkit always uses fewer tokens or is faster than an optimized script. Compare equivalent result scope, account for initial capture and process/connection startup separately, and retain relevant warnings.
 
 ## Connect and read
 
@@ -21,7 +41,7 @@ Use `cocos_query` for this read. Retain snapshot IDs and full refs. `graph.query
 
 Paged `text` is sometimes a JSON fragment. Append chunks while `offset` increases. When the next response resets `offset` to zero, parse the preceding complete page and start a new page. Follow `nextCursor` without changing other params; do not JSON-parse every chunk individually or concatenate separate JSON pages as one array. Preserve warnings/coverage and omitted counts; use `artifact.read` warning chunks if needed.
 
-Use Source Navigator operations for definitions, references, method bodies, schema and bindings. Source locations may be stale/unmapped; serialized values are not live layout or gameplay proof.
+Use Source Navigator when definitions, references, schema or bindings need its mapping; use direct source reads for already known methods. Source locations may be stale/unmapped; serialized values are not live layout or gameplay proof.
 
 ## Change through the owner
 
@@ -29,7 +49,7 @@ Disk, Editor and runtime namespaces are separate. A disk graph handle cannot aut
 
 `cocos_propose` supports qualified `editor.propose` and rollback proposals; `cocos_apply` supports `editor.apply`. The kit enforces exact local hash approval (`approve <proposal-id> <reviewed-hash>`). A client `approved:true` flag grants nothing. Respect the user's actual task authorization when using the local host channel. Preserve returned checkpoints and explicit indeterminate outcomes; never blindly replay uncertain writes.
 
-Only the documented plain-scene property/reference/rename adapters are qualified. Broader structural, nested-prefab, array, asset and source mutation adapters remain unavailable. `graph.restore` is a dry-run round-trip result, not permission to write a running project's files. If a direct fallback is necessary, establish the actual target/ownership and recapture afterward.
+Only the documented plain-scene property/reference/rename adapters are qualified. Broader structural, nested-prefab, array, asset and source mutation adapters remain unavailable. `graph.restore` is a dry-run round-trip result, not permission to write a running project's files. For authorized direct edits, establish the actual target/ownership and recapture any affected toolkit snapshots afterward. Toolkit mutation approvals are still required for toolkit apply operations; direct access is not an implicit grant to change files.
 
 ## Runtime and builds
 

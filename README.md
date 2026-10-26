@@ -174,7 +174,7 @@ Actual synthetic Web Mobile build and a separate browser smoke check are qualifi
 
 ## Phase 8: distribution and measured scope
 
-Version0.8 adds checksummed portable packaging, versioned install/upgrade/rollback/uninstall, explicit macOS/Windows user-service plans, startup daemon-log rotation, terminal artifact pruning and a distributable AI skill. Prefer the kit for Cocos operations; direct file/CLI/engine fallback remains allowed when genuinely necessary and authorized.
+Version0.8 adds checksummed portable packaging, versioned install/upgrade/rollback/uninstall, explicit macOS/Windows user-service plans, startup daemon-log rotation, terminal artifact pruning and a distributable AI skill. Choose tools per task: use `rg`/focused scripts for small known targets; use the kit for graph/reference mapping, related queries on reusable snapshots, live Editor/runtime access and managed builds. Direct access is a normal option within the user’s authorized scope.
 
 See [operations](docs/operations.md), [compatibility](docs/compatibility.md), [acceptance boundaries](docs/acceptance.md) and [AI skill](skills/cocos-ai-toolkit/SKILL.md). `npm run package:portable` creates a runtime directory with vendored dependencies. No persistent OS service is installed by packaging or normal daemon start.
 
