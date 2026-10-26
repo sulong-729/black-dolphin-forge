@@ -259,3 +259,10 @@ Plan: /Users/fe-ducphu/cc30-new-all-in-one/docs/superpowers/plans/2026-10-23-coc
 - Qualification found pkgbuild strips .DS_Store while the original portable manifest included it. Regression reproduced RED, then bundler excludes that metadata. Final expanded PKG payload passes real runtime installation and service upgrade on this Mac; Installer GUI/receipt flow and actual Windows execution remain NOT_RUN.
 - Final npm run check: 208/208 PASS, zero skipped. Skill validator PASS; archive CRC checks PASS; PKG expanded, app plist/shell validated. Isolated runtime install and same-version repeat PASS. Actual dashboard button downloaded a valid complete ZIP into Downloads. Service left running/enabled on 0.9.2.
 - Source published on main; installer branch carries versioned macOS PKG, Windows ZIP/CMD installer, skill ZIP and SHA256SUMS. No game files or private user credentials included.
+
+## Selective toolkit routing — 2026-10-26
+
+- User's project benchmark showed focused scripts can return substantially less content and can be faster for small known queries; toolkit benefits depend on task scope, snapshot capture and connection reuse. No new performance measurement is claimed here.
+- Version 0.9.3 replaces blanket toolkit preference with per-task routing in the skill, description, README and operations docs. Small known source/property reads use rg or focused scripts without daemon/discovery/snapshot overhead. Mapping, binding analysis, ambiguity, related graph queries and live workflows use toolkit where useful. Routine direct reads require no fallback explanation.
+- Toolkit workflow now favors persistent MCP, valid snapshot reuse, operation-specific discovery and bounded fields while preserving relevant warnings, provenance and revision limits. Mutation authorization and stale-snapshot rules are preserved.
+- Skill validator and ZIP CRC PASS; npm run check 208/208 PASS. Updated installed skill and packaged downloads; macOS runtime upgraded. Windows actual execution remains NOT_RUN. No game files changed.

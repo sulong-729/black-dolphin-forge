@@ -73,3 +73,11 @@ After installing the runtime, `node scripts/install-desktop.mjs <install-root>` 
 Use **Download Skill** in the control window to download `cocos-ai-toolkit-skill.zip`, containing the skill, capability reference and linked workflow docs. Extract the `cocos-ai-toolkit` directory into your AI client's skill folder. This download does not configure MCP automatically.
 
 See `installers/README.md` for the macOS PKG and Windows ZIP/CMD installer, prerequisites and qualification limits. Installer artifacts are maintained on the `installer` branch.
+
+## Choosing direct reads or the toolkit
+
+Use `rg` or focused scripts for known files, a few serialized settings or a small source excerpt. Return only the requested fields; parsing a large file locally does not require sending the entire JSON to the model. No daemon, project registration or snapshot is needed for such reads.
+
+Use Black Dolphin Forge when node/reference mapping, cross-node bindings, ambiguity resolution, live state or repeated related queries make its context useful. Prefer a persistent MCP connection and reuse valid scoped snapshots. Describe specific operations as needed instead of loading the entire catalog. Recapture after input changes. Keep relevant warnings and coverage limits visible; avoid echoing unrelated fields or full envelopes.
+
+Neither route is universally faster or smaller. Initial snapshot capture, warm queries and fresh CLI startup are different costs. A focused script is an appropriate first choice for a precise question even on a large scene. See the skill for routing examples.
