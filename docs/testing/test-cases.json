@@ -2635,8 +2635,8 @@
     "expected": "Same policy gate as apply; no bypass",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#JOB-001; Build proposal reuses exact local hash policy; unapproved/spoof/query writes refused; genuine uncertain start has indeterminate envelope, known conflict remains retryable.",
     "task": "7.1"
   },
   {
@@ -2651,8 +2651,8 @@
     "expected": "Only owned process group terminated",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#JOB-002; Actual controlled POSIX worker and descendants cancelled; leader-exit and journal-write boundary regressions; unrelated process retained. Windows NOT_RUN.",
     "task": "7.1"
   },
   {
@@ -2667,8 +2667,8 @@
     "expected": "Interrupted/indeterminate recorded; no silent replay",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#JOB-003; Persisted running record becomes interrupted, blocks fresh project job until exact local reconciliation; no historical PID kill or replay. Controlled disk recovery, not native hard-power failure.",
     "task": "7.1"
   },
   {
@@ -2683,8 +2683,8 @@
     "expected": "Serialize or reject; independent ownership tracked",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#JOB-004; One active job per project and refusal/retry tested with real controlled workers; locks cover kit jobs only.",
     "task": "7.1"
   },
   {
@@ -2699,8 +2699,8 @@
     "expected": "Protocol error and bounded diagnostics; no parsed false success",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#JOB-005; JSONL malformed/duplicate or wrong-id result rejection, exit failure, UTF-8 chunk preservation and log-persistence failure isolation; no stdout false success.",
     "task": "7.1"
   },
   {
@@ -2715,8 +2715,8 @@
     "expected": "Same schema/error/cancel/artifact semantics for implemented adapter",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#JOB-006; Node controlled workers and actual Python3.9.6 worker share version1 result/id semantics; Go/C++ not implemented.",
     "task": "7.1"
   },
   {
@@ -2731,8 +2731,8 @@
     "expected": "Artifact handle/chunks; no unbounded base64 in control channel",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#JOB-007; Bounded artifact text chunks, manifest checksums and private output handles; no control-channel binary payload.",
     "task": "7.1"
   },
   {
@@ -2747,8 +2747,8 @@
     "expected": "No result attached to new job/session; explicit stale response",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#JOB-008; Controlled timeout is terminal; late worker cannot spawn after cancellation, request IDs bind result; replacement session retains interrupted identity.",
     "task": "7.1"
   },
   {
@@ -2763,8 +2763,8 @@
     "expected": "Unavailable actionable reason; no automatic unrequested install",
     "priority": "P1",
     "automation": "environment-required",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#BLD-001; Read-only configured-file doctor returns actionable missing-profile reason; actual worker doctor reports Python/platform. Not a vendor/signature/SDK detector.",
     "task": "7.1/7.2"
   },
   {
@@ -2779,8 +2779,8 @@
     "expected": "Expected output/exit/log/manifest recorded; build evidence only",
     "priority": "P1",
     "automation": "environment-required",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#BLD-002; Actual Creator3.7.3 Web Mobile build has expected index/exit/log/checksum manifest; separate browser text smoke proof.",
     "task": "7.1/7.2"
   },
   {
@@ -2795,8 +2795,8 @@
     "expected": "Artifact stale; cache not promoted as current",
     "priority": "P1",
     "automation": "environment-required",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#BLD-003; Controlled source change during build marks artifact stale; actual first-import metadata changes also fail stale verification.",
     "task": "7.1/7.2"
   },
   {
@@ -2811,8 +2811,8 @@
     "expected": "Cache invalidated even if scene bytes unchanged",
     "priority": "P1",
     "automation": "environment-required",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#BLD-004; Engine source/profile/executable/worker/project input hashes pin approval and output; explicit --engine binds selection; engine preview cache excluded. Toolkit cache reuse not implemented.",
     "task": "7.1/7.2"
   },
   {
@@ -2827,8 +2827,8 @@
     "expected": "Cache miss/rebuild or explicit failure; no bogus cache hit",
     "priority": "P1",
     "automation": "environment-required",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#BLD-005; Controlled Creator exit without expected index fails; no prior output reused. Symlink output root refused.",
     "task": "7.1/7.2"
   },
   {
@@ -2843,8 +2843,8 @@
     "expected": "Report build pass only; launch/visual/device NOT_RUN",
     "priority": "P1",
     "automation": "environment-required",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#BLD-006; Build evidence separated from browser smoke; native-device/gameplay/release suitability NOT_RUN.",
     "task": "7.1/7.2"
   },
   {
@@ -2907,8 +2907,8 @@
     "expected": "Argument arrays used; no shell interpolation or path corruption",
     "priority": "P1",
     "automation": "environment-required",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#BLD-010; Argument arrays and actual paths with spaces exercised through Python/Creator; Windows path execution NOT_RUN.",
     "task": "7.1/7.2"
   },
   {
@@ -2923,8 +2923,8 @@
     "expected": "Counts and first/last context retained; loss summary explicit",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#DIAG-001; Controlled log dedup retains counts and first/last source lines, bounded inventories and explicit dropped count.",
     "task": "7.2"
   },
   {
@@ -2939,8 +2939,8 @@
     "expected": "Correct ranges/hash or explicit unmapped frames",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#DIAG-002; Exact project source file/hash/range/snippet validated; stale/outside paths refused; parsed stack locations remain unverified. Native/source-map integration excluded.",
     "task": "7.2"
   },
   {
@@ -2971,8 +2971,8 @@
     "expected": "Unavailable not zero; source/backend indicated",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#DIAG-004; Native profiler capability unavailable, no fabricated zero backend counter.",
     "task": "7.2"
   },
   {
@@ -3003,8 +3003,8 @@
     "expected": "No fabricated crash probability or native reproduction claim",
     "priority": "P1",
     "automation": "automated",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p7/report.json#DIAG-006; Logs do not produce crash probability/native reproduction or a guessed component culprit.",
     "task": "7.2"
   },
   {

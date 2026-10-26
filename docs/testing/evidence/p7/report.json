@@ -1,0 +1,150 @@
+{
+  "phase": "P7",
+  "version": "0.7.0",
+  "status": "PASS_SCOPED",
+  "timestamp": "2026-10-26T06:54:52.220Z",
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v22.16.0",
+  "tests": 185,
+  "cases": {
+    "JOB-001": "Build proposal reuses exact local hash policy; unapproved/spoof/query writes refused; genuine uncertain start has indeterminate envelope, known conflict remains retryable.",
+    "JOB-002": "Actual controlled POSIX worker and descendants cancelled; leader-exit and journal-write boundary regressions; unrelated process retained. Windows NOT_RUN.",
+    "JOB-003": "Persisted running record becomes interrupted, blocks fresh project job until exact local reconciliation; no historical PID kill or replay. Controlled disk recovery, not native hard-power failure.",
+    "JOB-004": "One active job per project and refusal/retry tested with real controlled workers; locks cover kit jobs only.",
+    "JOB-005": "JSONL malformed/duplicate or wrong-id result rejection, exit failure, UTF-8 chunk preservation and log-persistence failure isolation; no stdout false success.",
+    "JOB-006": "Node controlled workers and actual Python3.9.6 worker share version1 result/id semantics; Go/C++ not implemented.",
+    "JOB-007": "Bounded artifact text chunks, manifest checksums and private output handles; no control-channel binary payload.",
+    "JOB-008": "Controlled timeout is terminal; late worker cannot spawn after cancellation, request IDs bind result; replacement session retains interrupted identity.",
+    "BLD-001": "Read-only configured-file doctor returns actionable missing-profile reason; actual worker doctor reports Python/platform. Not a vendor/signature/SDK detector.",
+    "BLD-002": "Actual Creator3.7.3 Web Mobile build has expected index/exit/log/checksum manifest; separate browser text smoke proof.",
+    "BLD-003": "Controlled source change during build marks artifact stale; actual first-import metadata changes also fail stale verification.",
+    "BLD-004": "Engine source/profile/executable/worker/project input hashes pin approval and output; explicit --engine binds selection; engine preview cache excluded. Toolkit cache reuse not implemented.",
+    "BLD-005": "Controlled Creator exit without expected index fails; no prior output reused. Symlink output root refused.",
+    "BLD-006": "Build evidence separated from browser smoke; native-device/gameplay/release suitability NOT_RUN.",
+    "BLD-010": "Argument arrays and actual paths with spaces exercised through Python/Creator; Windows path execution NOT_RUN.",
+    "DIAG-001": "Controlled log dedup retains counts and first/last source lines, bounded inventories and explicit dropped count.",
+    "DIAG-002": "Exact project source file/hash/range/snippet validated; stale/outside paths refused; parsed stack locations remain unverified. Native/source-map integration excluded.",
+    "DIAG-004": "Native profiler capability unavailable, no fabricated zero backend counter.",
+    "DIAG-006": "Logs do not produce crash probability/native reproduction or a guessed component culprit."
+  },
+  "completion": {
+    "task71": "Qualified Web Mobile/Python job core; toolkit cache reuse and separate native SDK compile/package adapters remain pending",
+    "task72": "Bounded log/source diagnostics and explicit platform unavailability qualified; device wrappers/capture/profiler/full component correspondence incomplete"
+  },
+  "actual": {
+    "creator": "3.7.3",
+    "python": "3.9.6",
+    "attempts": [
+      {
+        "status": "failed",
+        "stale": true,
+        "stages": [
+          {
+            "name": "doctor",
+            "status": "succeeded"
+          },
+          {
+            "name": "validate",
+            "status": "succeeded"
+          },
+          {
+            "name": "export",
+            "status": "succeeded"
+          },
+          {
+            "name": "artifact",
+            "status": "failed"
+          }
+        ]
+      },
+      {
+        "status": "succeeded",
+        "stale": false,
+        "stages": [
+          {
+            "name": "doctor",
+            "status": "succeeded"
+          },
+          {
+            "name": "validate",
+            "status": "succeeded"
+          },
+          {
+            "name": "export",
+            "status": "succeeded"
+          },
+          {
+            "name": "artifact",
+            "status": "succeeded"
+          }
+        ]
+      }
+    ],
+    "artifact": {
+      "files": 23,
+      "bytes": 11762718,
+      "index": {
+        "path": "web-mobile/index.html",
+        "size": 2041,
+        "sha256": "dfa3b21646c2431b89712a6c1c144695cb6366b17675f06aedcce0851cae6d0d"
+      },
+      "sourceBefore": "2eaf2370e508c9b87c7fcf3e8bfe67e78a09d1a44cc0c8ec363f9a179f323d59",
+      "sourceAfter": "2eaf2370e508c9b87c7fcf3e8bfe67e78a09d1a44cc0c8ec363f9a179f323d59",
+      "engineSelection": "explicit --engine; full selected tree excluding generated bin/.cache",
+      "cache": "toolkit-output-not-reused"
+    },
+    "browser": {
+      "status": "PASS_SCOPED",
+      "evidence": "actual-built-web-mobile-browser",
+      "visibleText": [
+        "BLACK DOLPHIN FORGE",
+        "Web Mobile build qualification"
+      ],
+      "renderSize": {
+        "width": 1398,
+        "height": 1758
+      },
+      "cssSize": {
+        "width": 699,
+        "height": 879
+      },
+      "observedConsoleErrors": [],
+      "scope": "Scene launch and fixture text only; no gameplay/native/performance acceptance",
+      "timestamp": "2026-10-26T06:54:52.182Z",
+      "artifactJob": "fbd2d038-324c-4951-8a59-1d5c0ddf6c10"
+    }
+  },
+  "review": {
+    "independent": "One completed whole-P7 review; one P1 and three P2 reproduced and fixed with regressions. No claim of independent re-review.",
+    "fixed": [
+      "Log write rejection no longer crashes daemon",
+      "Fingerprinted engine explicitly selected",
+      "Symlink output root refused",
+      "Known start refusals retain structured error and retry; uncertain starts use indeterminate envelope"
+    ],
+    "additionalRegressions": [
+      "Cancel during stage persistence cannot launch late worker",
+      "Worker leader exit retains owned group cancellation",
+      "UTF-8 chunks preserved",
+      "Generated engine preview cache excluded from source changes"
+    ]
+  },
+  "limitations": [
+    "Windows execution and native Android/iOS SDK/device build/install/launch NOT_RUN; capabilities unavailable",
+    "Profiler/capture and full stack/source-map/runtime-component correspondence unavailable",
+    "No toolkit cache reuse; Creator internal caches not qualified by toolkit",
+    "Profile/approval/reconciliation are trusted host channels, not a sandbox against unrestricted local shell or project hooks",
+    "Locks cannot prevent external editor/engine changes; first import may require a fresh reviewed proposal",
+    "Fingerprint budgets and symlink refusal limit large/external-dependency projects",
+    "Build/smoke is not gameplay, release, native-device or performance acceptance",
+    "Prior P5.2 broad mutations and P6 runtime actions remain incomplete"
+  ],
+  "evidence": {
+    "build": "build-report.json",
+    "browser": "browser-report.json",
+    "screenshot": "web-mobile.png",
+    "check": "check.txt",
+    "manifest": "manifest.json"
+  }
+}

@@ -86,7 +86,7 @@ export async function startServer(options: {
     await rename(tmp, path.join(state, 'endpoint.json'));
     async function close() { if (closing)
         return closing; closing = (async () => { if (stopTimer)
-        clearTimeout(stopTimer); core.sessions.close(); core.runtime.close(); await new Promise<void>((resolve, reject) => { server.close(e => e ? reject(e) : resolve()); server.closeIdleConnections(); }); try {
+        clearTimeout(stopTimer); await core.jobs.close(); core.sessions.close(); core.runtime.close(); await new Promise<void>((resolve, reject) => { server.close(e => e ? reject(e) : resolve()); server.closeIdleConnections(); }); try {
         const current = JSON.parse(await readFile(path.join(state, 'endpoint.json'), 'utf8'));
         if (current.instanceId === instanceId)
             await unlink(path.join(state, 'endpoint.json'));

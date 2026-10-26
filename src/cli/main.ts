@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+import {reconcileJob} from '../jobs/recovery.js';
+import path from 'node:path';
+import {configureBuild} from '../build/profiles.js';
+import {readFile} from 'node:fs/promises';
 import {approveProposal} from '../mutation/policy.js';
 import {platformPaths} from '../platform/paths.js';
 import { startServer } from '../daemon/server.js';
@@ -35,6 +39,8 @@ async function main() {
             return;
         }
     }
+    if(command==='job'&&sub==='reconcile'){output(await reconcileJob(path.join(platformPaths().state,'jobs'),args[0],args[1]));return;}
+    if(command==='build'&&sub==='configure'){output(await configureBuild(platformPaths().state,args[0],JSON.parse(await readFile(args[1],'utf8'))));return;}
     if (command === 'approve') { output(await approveProposal(platformPaths().state,sub,args[0])); return; }
     if (command === 'mcp') {
         await runMcp();
@@ -54,7 +60,7 @@ async function main() {
     else if (command === 'project' && sub === 'list')
         request = createRequest('project.list');
     else {
-        output({ usage: ['daemon start|status|stop', 'project register <root>', 'project list', 'describe [operation]', 'rpc <JSON envelope>', 'approve <proposal-id> <reviewed-hash>', 'preview permit <project-id> <origin>', 'preview revoke <project-id> <permit-id>', 'mcp'] });
+        output({ usage: ['daemon start|status|stop', 'project register <root>', 'project list', 'describe [operation]', 'rpc <JSON envelope>', 'approve <proposal-id> <reviewed-hash>', 'preview permit <project-id> <origin>', 'preview revoke <project-id> <permit-id>', 'job reconcile <job-id> <reviewed-hash>', 'build configure <project-id> <profile-json-file>', 'mcp'] });
         return;
     }
     const result = await call(request,undefined,command==='query'?'cocos_query':undefined);

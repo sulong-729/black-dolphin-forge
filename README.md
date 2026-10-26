@@ -36,7 +36,7 @@ Start the daemon first. Configure your MCP client to launch Node with absolute p
 }
 ```
 
-Use Windows-style paths escaped as JSON on Windows, for example `C:\\Tools\\cocos-ai-toolkit\\dist\\cli\\main.js`. The six facade names are `cocos_describe`, `cocos_query`, `cocos_propose`, `cocos_apply`, `cocos_job` and `cocos_artifact`. Describe/query/artifact reads are available. Phase 5 adds scoped Editor proposals and apply after exact local approval; job facades remain unavailable. `project.register` is a local configuration action available through CLI/authenticated RPC, not the query facade.
+Use Windows-style paths escaped as JSON on Windows, for example `C:\\Tools\\cocos-ai-toolkit\\dist\\cli\\main.js`. The six facade names are `cocos_describe`, `cocos_query`, `cocos_propose`, `cocos_apply`, `cocos_job` and `cocos_artifact`. Describe/query/artifact reads are available. Phase 5 adds scoped Editor proposals and apply after exact local approval; the job facade adds the qualified Web Mobile pipeline described below. `project.register` is a local configuration action available through CLI/authenticated RPC, not the query facade.
 
 All MCP facade policy is evaluated by the same daemon dispatcher. HTTP callers can supply `X-Cocos-Tool: cocos_query` for the same read-only facade restrictions; `node dist/cli/main.js query "<JSON envelope>"` uses that restriction too. Raw authenticated RPC/CLI `rpc` also supports local project registration and daemon lifecycle.
 
@@ -165,3 +165,9 @@ Version 0.5 adds a proposal → local approval → owner compare-and-apply → r
 Version 0.6 adds opt-in Creator 3.7.3 web preview capture, session-scoped handles, frame windows and UI diagnostics. Animation, render, physics, audio and input adapters expose qualified read-only component state. See [runtime guide](docs/runtime.md) for scoped credentials, bootstrap and domain limits.
 
 Runtime actions, native profiling and automatic Editor/source correspondence remain unavailable. Captures never force Widget/Layout updates or activate inactive nodes. Actual preview qualification uses an isolated fixture; it does not qualify native devices or Windows.
+
+## Phase 7: build jobs and diagnostics
+
+Version 0.7 adds locally configured Creator 3.7.3 Web Mobile jobs using a Python 3 worker. Build proposals share exact local hash approval with Editor mutations. Jobs persist state, provide owned cancellation/timeout, reject stale inputs and expose bounded logs/output manifests. Interrupted projects require explicit local reconciliation. See [build guide](docs/build.md).
+
+Actual synthetic Web Mobile build and a separate browser smoke check are qualified on macOS. Toolkit output-cache reuse, Android/iOS build/install/launch, profiler capture, full diagnostic component correspondence and Windows execution remain unavailable or unqualified. No native-device claim follows from the Web build.

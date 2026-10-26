@@ -10,7 +10,7 @@
 
 **Spec:** [Thiết kế v2](../design.md). **Test catalog:** [Danh mục và quy trình](../testing/test-cases.md), [CSV](../testing/test-cases.csv).
 
-**Status:** P1/P2 offline core đã triển khai và kiểm tra trên macOS; P2 có qualification Creator 3.7.3 cho fixture Node/UITransform/Button cụ thể. Xem report từng phase để biết exclusions; Windows CI chưa chạy, P3 có experimental read-only bridge/schema với Inspector, dirty state, prefab stage và custom inheritance trên Creator 3.7.3; lifecycle/nested-prefab đầy đủ, Windows và P7–P8 chưa nghiệm thu; P6 có scoped read-only web-preview core, actions/native và source correspondence chưa nghiệm thu; P5 có scoped property/reference/rename + approval/recovery qualification trên macOS, Task5.2 structural/prefab/asset/source/array đầy đủ còn pending. P4 static Source Navigator đã kiểm chứng project/package/selected engine3.7.3 và MCP; source-map coverage giới hạn ở điểm ánh xạ. Prototype không thay thế qualification engine.
+**Status:** P1/P2 offline core đã triển khai và kiểm tra trên macOS; P2 có qualification Creator 3.7.3 cho fixture Node/UITransform/Button cụ thể. Xem report từng phase để biết exclusions; Windows CI chưa chạy, P3 có experimental read-only bridge/schema với Inspector, dirty state, prefab stage và custom inheritance trên Creator 3.7.3; lifecycle/nested-prefab đầy đủ, Windows và P8 chưa nghiệm thu; P7 có scoped Web Mobile/Python job core, native platform/profiler còn pending; P6 có scoped read-only web-preview core, actions/native và source correspondence chưa nghiệm thu; P5 có scoped property/reference/rename + approval/recovery qualification trên macOS, Task5.2 structural/prefab/asset/source/array đầy đủ còn pending. P4 static Source Navigator đã kiểm chứng project/package/selected engine3.7.3 và MCP; source-map coverage giới hạn ở điểm ánh xạ. Prototype không thay thế qualification engine.
 
 ## Global constraints
 
@@ -214,9 +214,9 @@ P6 scope: xem `docs/runtime.md` và `docs/testing/evidence/p6/report.json`. Rele
 **Create:** `src/jobs/{runner,locks,cancel,recovery}.ts`, `src/build/{profiles,creator,fingerprints,artifacts}.ts`, `adapters/python/protocol.py`, `tests/integration/jobs.test.ts`.
 **Interface:** job.start/status/cancel qua cùng authorization; JSON Lines worker protocol, artifacts thay payload binary.
 **Tests:** JOB-001..JOB-008, BLD-001..BLD-006.
-- [ ] Assert owned process group, interrupted jobs, worker crash/protocol corruption, stale source/engine cache và idempotency.
-- [ ] RED -> implement doctor/validate/export/task stages -> GREEN.
-- [ ] Build Web Mobile synthetic project thật; save output manifest và separate preview evidence.
+- [x] Scoped core: owned POSIX groups, interrupted reconciliation, worker protocol failures, stale input/no cache reuse và idempotency; Windows execution NOT_RUN.
+- [x] RED -> doctor/validate/export/artifact stages -> GREEN; native compile/package adapters chưa triển khai.
+- [x] Actual Creator3.7.3 Web Mobile synthetic build + separate browser smoke; manifest/log/screenshot recorded on macOS.
 
 ### Task 7.2: Platform/debug/profiler adapters
 
@@ -224,8 +224,10 @@ P6 scope: xem `docs/runtime.md` và `docs/testing/evidence/p6/report.json`. Rele
 **Interface:** adapter revisions, toolchain/device capability, selected target install/launch, source-linked diagnostics.
 **Tests:** BLD-007..BLD-010, DIAG-001..DIAG-006.
 - [ ] Assert no SDK/dependency -> unavailable; no arbitrary device selection; native stack/sourcemap uncertainty explicit.
-- [ ] RED -> implement backend wrappers/capture -> GREEN contracts.
+- [x] RED -> Python Web build worker, bounded diagnostics/source locations và explicit native/profiler unavailability -> GREEN. Full platform wrappers/capture remain pending.
 - [ ] Khi toolchain/device có sẵn: build/install/launch thật và record serial/runtime/version; mock không thay thế.
+
+P7 supported/excluded scope: `docs/build.md` and `docs/testing/evidence/p7/report.json`. Task7.1 Web core is scoped; cache reuse and separate native SDK compile/package remain pending. Task7.2 diagnostic reads are scoped; actual device adapters/profiler/capture and full stack-to-component mapping remain pending.
 
 ## Phase P8 — Đóng gói, service và đo hiệu quả
 
