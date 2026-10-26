@@ -17,3 +17,6 @@ docs/testing/evidence/**
 !docs/testing/evidence/README.md
 !docs/testing/evidence/p*/
 !docs/testing/evidence/p*/report.json
+
+# Local bridge connection configuration
+extensions/cocos-ai-bridge/config.json

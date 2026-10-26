@@ -13,6 +13,7 @@ export interface Capability {
     handler?: (params: any, request: RequestEnvelope) => Promise<unknown> | unknown;
     supportedCreatorVersions?: string[];
     description?: string;
+    resultStatus?: (data:any)=>'ok'|'partial'|'indeterminate';
 }
 export class Registry {
     private readonly entries = new Map<string, Capability>();
@@ -26,7 +27,7 @@ export class Registry {
         const values = operation ? [this.entries.get(operation)].filter(Boolean) as Capability[] : [...this.entries.values()];
         if (operation && !values.length)
             throw new KitError('UNKNOWN_OPERATION', 'Unknown operation: ' + operation, 'Use describe to discover available operations.');
-        return values.map(({ handler, inputSchema, ...publicMetadata }) => ({ ...publicMetadata,
+        return values.map(({ handler, inputSchema, resultStatus, ...publicMetadata }) => ({ ...publicMetadata,
             ...(operation ? { inputSchema: z.toJSONSchema(inputSchema), outputSchema: z.toJSONSchema(ResultSchema), preconditions: { source: publicMetadata.process.startsWith('editor') ? 'editor' : publicMetadata.process.endsWith('runtime') ? 'runtime' : 'disk', availability: publicMetadata.availability, trustedAuthorization: !publicMetadata.readOnly } } : {}),
         }));
     }
@@ -51,7 +52,7 @@ export class Registry {
             if (!cap.readOnly && !this.authorize(cap, request))
                 throw new KitError('AUTHORIZATION_REQUIRED', 'Trusted task/user authorization required; client flags do not grant it');
             const data = await cap.handler(params.data, request);
-            return { formatVersion: 1, requestId, status: 'ok', source: request.source, data, warnings: [] };
+            return { formatVersion: 1, requestId, status: cap.resultStatus?.(data)??'ok', source: request.source, data, warnings: [] };
         }
         catch (error) {
             return { formatVersion: 1, requestId, status: 'error', warnings: [], error: errorInfo(error) };

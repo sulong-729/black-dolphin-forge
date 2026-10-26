@@ -1,0 +1,28 @@
+import {readFile,writeFile,readdir,mkdir,copyFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';import path from 'node:path';
+const directory='docs/testing/evidence/p5';await mkdir(directory,{recursive:true});
+const native=JSON.parse(await readFile(directory+'/creator-report.json','utf8')),check=await readFile('/tmp/cocos-p5-check.log','utf8');
+if(native.status!=='PASS_SCOPED'||!native.reloadReplacedOwnerIdentity||!native.proposalNoEditorWrite||!native.uiProperties||!/# fail 0\b/.test(check))throw Error('Current passing native/property/UI/reload and core evidence required');
+await copyFile('/tmp/cocos-p5-check.log',directory+'/check.txt');
+const scope={
+ 'MUT-001':'Actual Creator owner preflight leaves Editor tree/dirty state and source bytes unchanged; diff and scope returned.',
+ 'MUT-002':'Actual native apply without local approval refused; actual MCP/HTTP/local CLI exact-hash path and spoof rejection tested with controlled owner.',
+ 'MUT-006':'Actual cc.Button nullable serialized target binds null and inverse restores original Node; explicit alias and public setter; native save/reload preserves ref.',
+ 'MUT-007':'Actual public setters: Node.position/active, UITransform.width/height, UIOpacity.opacity, Button.interactable/target; qualified read-back, no backing-field assignment.',
+ 'MUT-008':'Actual Creator scene-facade Undo/redo restores/advances property edit.',
+ 'MUT-009':'Actual save=false leaves disk bytes unchanged; explicit harness save then replacement-owner reload preserves values/references.',
+ 'MUT-010':'Actual native repeated proposal/key returns original outcome; actual MCP/HTTP also replays persisted result. Lost-ack restart test uses controlled owner, not native fault injection.',
+ 'MUT-020':'RPC/MCP and owner closed operation/field allowlists refuse blanket method/eval/shell execution and unqualified operations.'
+};
+const report={phase:'P5',version:'0.5.0',status:'PASS_SCOPED',timestamp:new Date().toISOString(),platform:process.platform,arch:process.arch,node:process.version,tests:Number(/# tests (\d+)/.exec(check)[1]),cases:scope,
+ completion:{task51:'Qualified property/reference proposal/approval/apply path implemented',task52:'Recovery and rename foundation implemented; broad structural/prefab/asset/source/array adapters NOT COMPLETE'},
+ native:{creator:native.creator,project:native.project,proposalNoEditorWrite:native.proposalNoEditorWrite,proposalNoDiskWrite:native.proposalNoDiskWrite,unapprovedNativeRefused:native.unapprovedNativeRefused,idempotentReplay:native.idempotentReplay,undoRedo:native.undoRedo,saveFalseNoDiskWrite:native.saveFalseNoDiskWrite,explicitSaveReload:native.explicitSaveReload,reloadReplacedOwnerIdentity:native.reloadReplacedOwnerIdentity,qualifiedFields:['cc.Node.position','cc.Node.active','cc.Node.name','cc.Button.target','cc.Button.interactable','cc.UITransform.width','cc.UITransform.height','cc.UIOpacity.opacity']},
+ controlledTests:['stale revision and expected-before','range/type/prefab refusal','reentrant field/hierarchy changes stop batch','inverse checkpoint conflict','durable indeterminate lost acknowledgment and restart','MCP/HTTP/CLI approval parity','Creator Electron compatibility'],
+ review:{independent:'NOT_RUN: reviewer failed before review due to account usage limit',author:'Separate self-review and regression checks; weaker than independent review'},
+ limitations:[...native.limits,'Task5.2 full structural/prefab/asset/source/array mutation scope remains incomplete','Native fault injection, nested-prefab write acceptance and Windows not run','No safe automatic inverse for partial/indeterminate writes; reconcile manually','Deferred engine changes may invalidate checkpoints; never silently refresh a rollback baseline','Local approval is a trusted host channel, not a sandbox against unrestricted same-user shell access'],
+ evidence:{creator:'creator-report.json',check:'check.txt',manifest:'manifest.json'}};
+await writeFile(directory+'/report.json',JSON.stringify(report,null,2)+'\n');
+const cases=JSON.parse(await readFile('docs/testing/test-cases.json','utf8'));for(const c of cases)if(scope[c.id]){c.status='PASS';c.evidence=directory+'/report.json#'+c.id+'; '+scope[c.id]+' Windows NOT_RUN.';}
+await writeFile('docs/testing/test-cases.json',JSON.stringify(cases,null,2)+'\n');const columns=Object.keys(cases[0]),csv=v=>'"'+String(v??'').replaceAll('"','""')+'"';await writeFile('docs/testing/test-cases.csv',columns.map(csv).join(',')+'\n'+cases.map(c=>columns.map(k=>csv(c[k])).join(',')).join('\n')+'\n');
+const hashes={};async function collect(dir){for(const e of await readdir(dir,{withFileTypes:true})){const f=path.join(dir,e.name);if(e.isDirectory())await collect(f);else hashes[f]=createHash('sha256').update(await readFile(f)).digest('hex');}}
+await collect('src/mutation');await collect('extensions/cocos-ai-bridge');for(const f of ['src/contracts/capabilities.ts','src/daemon/dispatcher.ts','src/editor/session.ts','src/cli/main.ts','src/mcp/server.ts','package.json','package-lock.json','scripts/qualify-mutations.mjs','scripts/report-p5.mjs','docs/mutations.md',...['mutations','mutation-owner','mutation-recovery'].map(n=>'tests/integration/'+n+'.test.mjs'),'tests/fixtures/editor/mutation-main.cjs',directory+'/creator-report.json',directory+'/check.txt'])hashes[f]=createHash('sha256').update(await readFile(f)).digest('hex');await writeFile(directory+'/manifest.json',JSON.stringify(hashes,null,2)+'\n');console.log(JSON.stringify({tests:report.tests,cases:cases.length,pass:cases.filter(c=>c.status==='PASS').length,notRun:cases.filter(c=>c.status==='NOT_RUN').length,status:report.status}));

@@ -10,7 +10,7 @@
 
 **Spec:** [Thiết kế v2](../design.md). **Test catalog:** [Danh mục và quy trình](../testing/test-cases.md), [CSV](../testing/test-cases.csv).
 
-**Status:** P1/P2 offline core đã triển khai và kiểm tra trên macOS; P2 có qualification Creator 3.7.3 cho fixture Node/UITransform/Button cụ thể. Xem report từng phase để biết exclusions; Windows CI chưa chạy, P3 có experimental read-only bridge/schema với Inspector, dirty state, prefab stage và custom inheritance trên Creator 3.7.3; lifecycle/nested-prefab đầy đủ, Windows và P5–P8 chưa nghiệm thu. P4 static Source Navigator đã kiểm chứng project/package/selected engine3.7.3 và MCP; source-map coverage giới hạn ở điểm ánh xạ. Prototype không thay thế qualification engine.
+**Status:** P1/P2 offline core đã triển khai và kiểm tra trên macOS; P2 có qualification Creator 3.7.3 cho fixture Node/UITransform/Button cụ thể. Xem report từng phase để biết exclusions; Windows CI chưa chạy, P3 có experimental read-only bridge/schema với Inspector, dirty state, prefab stage và custom inheritance trên Creator 3.7.3; lifecycle/nested-prefab đầy đủ, Windows và P6–P8 chưa nghiệm thu; P5 có scoped property/reference/rename + approval/recovery qualification trên macOS, Task5.2 structural/prefab/asset/source/array đầy đủ còn pending. P4 static Source Navigator đã kiểm chứng project/package/selected engine3.7.3 và MCP; source-map coverage giới hạn ở điểm ánh xạ. Prototype không thay thế qualification engine.
 
 ## Global constraints
 
@@ -174,7 +174,7 @@ Dưới đây là task boundaries và test cases làm hợp đồng. Chi tiết 
 **Tests:** MUT-001..MUT-010.
 - [ ] Assert propose không ghi; untrusted approval bị reject; stale check tại owner; type/nullability/range trước side effect; read-back đúng.
 - [ ] RED -> implement main-thread compare-and-apply và revision updates -> GREEN.
-- [ ] Cocos thật sửa one property/ref, Undo/save/reload; output có field diff và evidence loại editor.
+- [x] Cocos thật sửa property/ref trong phạm vi adapter được ghi ở P5 report, Undo/save/reload xác nhận replacement owner; output có diff và evidence loại editor.
 
 ### Task 5.2: Structural/prefab/asset/source edits và recovery
 

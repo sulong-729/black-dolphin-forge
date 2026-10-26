@@ -1867,8 +1867,8 @@
     "expected": "Source/editor state unchanged; before/after and scope reported",
     "priority": "P0",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p5/report.json#MUT-001; Actual Creator owner preflight leaves Editor tree/dirty state and source bytes unchanged; diff and scope returned. Windows NOT_RUN.",
     "task": "5.1/5.2"
   },
   {
@@ -1883,8 +1883,8 @@
     "expected": "Rejected before side effect",
     "priority": "P0",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p5/report.json#MUT-002; Actual native apply without local approval refused; actual MCP/HTTP/local CLI exact-hash path and spoof rejection tested with controlled owner. Windows NOT_RUN.",
     "task": "5.1/5.2"
   },
   {
@@ -1947,8 +1947,8 @@
     "expected": "Correct live binding and restored serialization",
     "priority": "P0",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p5/report.json#MUT-006; Actual cc.Button nullable serialized target binds null and inverse restores original Node; explicit alias and public setter; native save/reload preserves ref. Windows NOT_RUN.",
     "task": "5.1/5.2"
   },
   {
@@ -1963,8 +1963,8 @@
     "expected": "Engine command/setter used; effective read-back matches",
     "priority": "P0",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p5/report.json#MUT-007; Actual public setters: Node.position/active, UITransform.width/height, UIOpacity.opacity, Button.interactable/target; qualified read-back, no backing-field assignment. Windows NOT_RUN.",
     "task": "5.1/5.2"
   },
   {
@@ -1979,8 +1979,8 @@
     "expected": "State returns/advances correctly; identities retained",
     "priority": "P0",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p5/report.json#MUT-008; Actual Creator scene-facade Undo/redo restores/advances property edit. Windows NOT_RUN.",
     "task": "5.1/5.2"
   },
   {
@@ -1995,8 +1995,8 @@
     "expected": "Unsaved editor change only; disk not overwritten or saved implicitly",
     "priority": "P0",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p5/report.json#MUT-009; Actual save=false leaves disk bytes unchanged; explicit harness save then replacement-owner reload preserves values/references. Windows NOT_RUN.",
     "task": "5.1/5.2"
   },
   {
@@ -2011,8 +2011,8 @@
     "expected": "Single effect; original outcome replayed or reconciled",
     "priority": "P0",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p5/report.json#MUT-010; Actual native repeated proposal/key returns original outcome; actual MCP/HTTP also replays persisted result. Lost-ack restart test uses controlled owner, not native fault injection. Windows NOT_RUN.",
     "task": "5.1/5.2"
   },
   {
@@ -2171,8 +2171,8 @@
     "expected": "Rejected; typed registered operations remain usable",
     "priority": "P0",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p5/report.json#MUT-020; RPC/MCP and owner closed operation/field allowlists refuse blanket method/eval/shell execution and unqualified operations. Windows NOT_RUN.",
     "task": "5.1/5.2"
   },
   {

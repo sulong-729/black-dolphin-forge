@@ -32,7 +32,7 @@ function activeRoot(context = {}) { const scene = cc.director.getScene(); if (!c
         if (child)
             stack.push(child);
 } throw Error('STALE_REVISION: active Editor tree root no longer exists'); }
-function capture(context, observed = []) {
+function capture(context, observed = [], bindings) {
     const root = activeRoot(context);
     if (!root)
         return [];
@@ -61,6 +61,7 @@ function capture(context, observed = []) {
         for (let i = children.length - 1; i >= 0; i--)
             stack.push({ node: children[i], path: item.path + '/' + encodeURIComponent(data(children[i], '_name') || '') + '[' + i + ']' });
     }
+    if (bindings) for (const [object, path] of refs) bindings.set(path, object);
     return nodes.map(({ node, path }) => {
         const components = (data(node, '_components') || []).map((c, i) => { const schema = reflection.describeType(cc, c && data(c, 'constructor')); return { path: c ? refs.get(c) : path + '/@missing[' + i + ']', type: schema.name, enabled: c ? data(c, '_enabled') : null, properties: c ? reflection.readProperties(cc, c, schema, refs, watch) : {}, coverage: schema.coverage }; });
         const chain = [];
@@ -108,11 +109,27 @@ function observe(context) {
         throw Error('STALE_REVISION: active document differs from main-process context');
     const r = registry(), observed = [], tree = capture(context, observed);
     const root = activeRoot(context);
-    return { engineVersion: cc.ENGINE_VERSION || cc.VERSION || globalThis.CocosEngine || (globalThis.cc && globalThis.cc.ENGINE_VERSION), features: { scene: typeof cc.director.getScene === 'function', registry: !!(cc.js._nameToClass || cc.js._registeredClassNames || (cc.js.js && cc.js.js._registeredClassNames)), attributes: !!data(cc.Node, '__attrs__') }, state: { document: context.document, stage: root ? context.stage : 'none', revision: hash({ generation, root: identity(root), context, tree, observed, schema: r.hash }), schema: r.hash, dirty: context.dirty, importing: context.importing }, counts: { classes: r.schemas.length, nodes: tree.length } };
+    return { engineVersion: cc.ENGINE_VERSION || cc.VERSION || globalThis.CocosEngine || (globalThis.cc && globalThis.cc.ENGINE_VERSION), features: { scene: typeof cc.director.getScene === 'function', registry: !!(cc.js._nameToClass || cc.js._registeredClassNames || (cc.js.js && cc.js.js._registeredClassNames)), attributes: !!data(cc.Node, '__attrs__'), mutationV1: !!historyFacade() }, state: { document: context.document, stage: root ? context.stage : 'none', revision: hash({ generation, root: identity(root), context, tree, observed, schema: r.hash }), schema: r.hash, dirty: context.dirty, importing: context.importing }, counts: { classes: r.schemas.length, nodes: tree.length } };
+}
+function historyFacade() { try { const facade=globalThis.cce&&globalThis.cce.SceneFacadeManager&&globalThis.cce.SceneFacadeManager.getCurrentFacade(); return facade&&typeof facade.recordNode==='function'&&typeof facade.snapshot==='function'?facade:null; } catch { return null; } }
+let mutations;
+function mutationAdapter() {
+    if(!mutations) mutations=require('./approval/mutation.cjs').createMutationAdapter({cc,observe,
+        bindings(context){const map=new Map();capture(context,[],map);return map;},
+        fingerprint(context){const ids=[],tree=capture(context,ids);return hash({tree,ids,schema:registry().hash});},
+        history:historyFacade});
+    return mutations;
 }
 exports.methods = {
     sources,
     observe,
+    mutate(context,job) {
+        const adapter=mutationAdapter();
+        if(job.command==='mutation.prepare') return {revision:job.revision,data:adapter.prepare(context,job)};
+        if(job.command==='mutation.rollback.prepare') return {revision:job.revision,data:adapter.rollbackPrepare(context,job)};
+        if(job.command==='mutation.apply') return {revision:job.revision,data:adapter.apply(context,job)};
+        throw Error('UNSUPPORTED_OPERATION: mutation command not allowlisted');
+    },
     read(context, job) {
         const before = observe(context);
         if (job.revision !== before.state.revision)

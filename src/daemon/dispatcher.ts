@@ -1,3 +1,5 @@
+import {registerMutations} from '../mutation/apply.js';
+import {mutationControls} from '../mutation/propose.js';
 import { z } from 'zod';
 import { readDocument } from './read-document.js';
 import { createHash } from 'node:crypto';
@@ -18,7 +20,7 @@ export function createDispatcher(state: string, identity: {
     const sessions = new EditorSessions({invalidate:id=>snapshots.expireSession(id)});
     const snapshots = new SnapshotStore({validate:snapshot=>{if(snapshot.source==='editor'&&snapshot.session){try{sessions.select(snapshot.projectId,snapshot.session);}catch{snapshots.expire(snapshot.id);}}}}), formatter = new Formatter(snapshots);
     // This local registration permission cannot authorize asset/source/engine writes.
-    const registry = new Registry(cap => cap.name === 'project.register' || bridgeControls.has(cap.name));
+    const registry = new Registry(cap => cap.name === 'project.register' || bridgeControls.has(cap.name) || mutationControls.has(cap.name));
     const add = (name: string, inputSchema: z.ZodType, handler: NonNullable<Parameters<Registry['register']>[0]['handler']>, readOnly = true) => registry.register({ name, area: name.split('.')[0], process: 'offline', readOnly, availability: 'available', inputSchema, handler });
     const projectId = (r: RequestEnvelope) => { if (!r.projectId)
         throw new KitError('SCHEMA_MISMATCH', 'projectId is required'); return r.projectId; };
@@ -39,24 +41,27 @@ export function createDispatcher(state: string, identity: {
         throw new KitError('SCHEMA_MISMATCH', 'Offset outside artifact'); return { text: text.slice(p.offset, p.offset + 6000), offset: p.offset, nextOffset: p.offset + 6000 < text.length ? p.offset + 6000 : null, total: text.length }; });
     add('daemon.status', empty, () => ({ service: 'cocos-ai-toolkit', ...identity }));
     add('daemon.stop', empty, () => { stop(); return { stopping: true, ...identity }; });
-    for (const name of ['editor.propose', 'editor.apply', 'job.start'])
+    for (const name of ['job.start'])
         registry.register({ name, area: name.split('.')[0], process: name.startsWith('job') ? 'build-worker' : 'editor-main', readOnly: name === 'editor.query', availability: name.startsWith('job') ? 'unavailable' : 'requires-editor', inputSchema: empty });
     registerGraphs(registry,projects,snapshots,formatter);
     registerSource(registry,projects,snapshots,formatter);
     registerEditor(registry,projects,snapshots,sessions);
+    registerMutations(registry,sessions,state,identity.instanceId);
     async function facade(name: string, input: any) {
         const raw = input && Object.hasOwn(input,'request') ? input.request : createRequest('capabilities.describe', input?.operation ? {operation:input.operation} : {});
         let request: RequestEnvelope;
         try { request = validateEnvelope(raw); } catch { return registry.dispatch(raw); }
         const fail = (error: KitError) => ({formatVersion:1 as const, requestId:request.requestId, status:'error' as const, warnings:[], error:errorInfo(error)});
-        if (!['cocos_describe','cocos_query','cocos_artifact'].includes(name))
+        if (!['cocos_describe','cocos_query','cocos_artifact','cocos_propose','cocos_apply'].includes(name))
             return fail(new KitError('UNAVAILABLE_CAPABILITY','Facade unavailable for this operation in Phase 1','Inspect capabilities; editor/job adapters are not qualified.'));
         if (name === 'cocos_describe' && request.operation !== 'capabilities.describe' || name === 'cocos_artifact' && request.operation !== 'artifact.read')
+            return fail(new KitError('UNAVAILABLE_CAPABILITY','Operation does not belong to this facade'));
+        if (name === 'cocos_propose' && !['editor.propose','editor.rollback.propose'].includes(request.operation) || name === 'cocos_apply' && request.operation !== 'editor.apply')
             return fail(new KitError('UNAVAILABLE_CAPABILITY','Operation does not belong to this facade'));
         if (name === 'cocos_query') {
             const cap = registry.describe().find(c => c.name === request.operation);
             // Unknown/malformed/unavailable reads keep the dispatcher's original error envelope.
-            if (cap && (!cap.readOnly || request.operation === 'daemon.stop'))
+            if (cap && (!cap.readOnly || ['daemon.stop','editor.propose','editor.rollback.propose'].includes(request.operation)))
                 return fail(new KitError('AUTHORIZATION_REQUIRED','Query facade accepts reads only','Use an authorized lifecycle/configuration command.'));
         }
         return registry.dispatch(request);

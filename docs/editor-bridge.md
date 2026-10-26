@@ -1,6 +1,6 @@
 # Editor bridge — P3
 
-The experimental adapter supports Creator and engine **3.7.3**, with explicit feature probes. It is read-only. It does not install a login service or start an Editor by itself.
+The experimental adapter supports Creator and engine **3.7.3**, with explicit feature probes. Its P3 query adapter is read-only; P5 adds a separate scoped mutation route documented in [mutation guide](mutations.md). It does not install a login service or start an Editor by itself.
 
 ## Setup
 
@@ -38,7 +38,7 @@ Schemas retain declared reference types, inherited owners, enum/bitmask labels, 
 
 ## Protocol and freshness
 
-The authenticated bridge control operations are `editor.connect`, `editor.heartbeat`, `editor.poll`, `editor.respond` and `editor.disconnect`. They cannot be called through the read-only query facade. Server-issued leases bind them to one project/session; only three allowlisted read commands can reach the scene owner. There is no eval/method-forwarding/write route.
+The authenticated bridge control operations are `editor.connect`, `editor.heartbeat`, `editor.poll`, `editor.respond` and `editor.disconnect`. They cannot be called through the read-only query facade. Server-issued leases bind them to one project/session; The P3 read route permits only three read commands. P5 has a separate closed mutation command set with exact local approval; there is no eval or arbitrary method-forwarding route.
 
 Session defaults: 15-second heartbeat TTL, 8-second read timeout, at most 16 sessions and 16 pending reads per session, 800,000-byte result cap. Larger captures fail rather than becoming a complete-looking truncated result. Individual nested values may report explicit budget omissions. Registry/snapshot discovery remains paged and bounded.
 
@@ -50,6 +50,6 @@ Prefab provenance is owner-process metadata: source paths where resolved, instan
 
 Contract tests cover routing, expiry/reconnect, unsupported versions, import gates, metadata/getter/proxy safety, missing scripts, inherited schemas and inline identity. Real Creator evidence is recorded separately in `docs/testing/evidence/p3/creator-report.json` and `creator.log`; inspect its status and stated limitations. Do not infer real-engine or Windows qualification from passing contract tests.
 
-The adapter never advertises writable or generic roundtrip coverage. Actual Windows execution, native runtime, builds and complete source navigation remain later qualification work.
+The generic P3 schema adapter never advertises writable or generic roundtrip coverage. P5 field adapters have separate qualification and approval requirements. Actual Windows execution, native runtime, builds and full nested-prefab coverage remain pending; source navigation is covered separately in P4.
 
 Message routing follows Creator's [extension messaging contract](https://docs.cocos.com/creator/3.7/manual/zh/editor/extension/messages); exact installed APIs are feature-probed and exercised in the synthetic project.

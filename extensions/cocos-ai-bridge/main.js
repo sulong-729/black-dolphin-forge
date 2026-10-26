@@ -68,7 +68,12 @@ async function tick() {
             let response;
             try {
                 const fresh = await context();
-                response = { id: job.id, ...await scene('read', [fresh, job]) };
+                const mutation=job.command.startsWith('mutation.');
+                response = { id: job.id, ...await scene(mutation?'mutate':'read', [fresh, job]) };
+                if(job.command==='mutation.apply') {
+                    const after=await context(),observed=await scene('observe',[after]);
+                    response.data.state=observed.state;
+                }
             }
             catch (e) {
                 response = { id: job.id, revision: job.revision, error: String(e.message || e).slice(0, 500) };

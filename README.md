@@ -1,4 +1,4 @@
-# Cocos AI Toolkit — Phases 1–4
+# Black Dolphin Forge — Cocos AI Toolkit
 
 A standalone foundation for AI ↔ toolkit ↔ Cocos. Core language: TypeScript/Node.js. Python workers and optional Go/C++ workers share versioned contracts; no native worker is needed to run the current core.
 
@@ -36,7 +36,7 @@ Start the daemon first. Configure your MCP client to launch Node with absolute p
 }
 ```
 
-Use Windows-style paths escaped as JSON on Windows, for example `C:\\Tools\\cocos-ai-toolkit\\dist\\cli\\main.js`. The six facade names are `cocos_describe`, `cocos_query`, `cocos_propose`, `cocos_apply`, `cocos_job` and `cocos_artifact`. Only describe/query/artifact reads are available in the current public facade; edit and job facades explicitly refuse execution. `project.register` is a local configuration action available through CLI/authenticated RPC, not the query facade.
+Use Windows-style paths escaped as JSON on Windows, for example `C:\\Tools\\cocos-ai-toolkit\\dist\\cli\\main.js`. The six facade names are `cocos_describe`, `cocos_query`, `cocos_propose`, `cocos_apply`, `cocos_job` and `cocos_artifact`. Describe/query/artifact reads are available. Phase 5 adds scoped Editor proposals and apply after exact local approval; job facades remain unavailable. `project.register` is a local configuration action available through CLI/authenticated RPC, not the query facade.
 
 All MCP facade policy is evaluated by the same daemon dispatcher. HTTP callers can supply `X-Cocos-Tool: cocos_query` for the same read-only facade restrictions; `node dist/cli/main.js query "<JSON envelope>"` uses that restriction too. Raw authenticated RPC/CLI `rpc` also supports local project registration and daemon lifecycle.
 
@@ -142,7 +142,7 @@ The bridge in `extensions/cocos-ai-bridge` runs only with explicit local `config
 - Results return a bounded snapshot. Read it through `snapshot.query` or `artifact.read`, keeping the same project/source/session scope.
 - Schema inventory uses registered constructors and inherited Cocos metadata, without instantiating classes. Reads use data descriptors; arbitrary getters, proxies and missing-script payloads are unavailable. Unknown shapes remain explicit.
 - A session/stage/schema/revision change expires dependent Editor snapshots. Disk snapshots remain independent. Polling is an observation, not a mutation transaction or native/runtime guarantee.
-- All mutation, roundtrip and build-job capabilities remain disabled. Windows execution and complete nested-prefab acceptance are pending.
+- The Phase 3 read adapter does not itself grant writes. Phase 5 adds separate qualified mutation operations below. Build jobs, Windows execution and complete nested-prefab acceptance remain pending.
 
 
 ## Phase 4: Source Navigator
@@ -152,3 +152,10 @@ AI uses the same MCP facade and authenticated local RPC for source navigation. S
 The current adapter connects normal `import ... from 'cc'` to the selected engine, follows aliases/barrel exports/inheritance, links serialized ClickEvent receivers, and pages source bodies with file hashes. Declaration-only, compiled/minified, missing source-map originals and dynamic edges are explicit. Source read access does not enable any mutation capability.
 
 See [Source Navigator](docs/source-navigator.md) and [P4 evidence](docs/testing/evidence/p4/report.json). Actual selected Creator3.7.3 source tests are static compiler evidence; Windows execution and native-language adapters remain unqualified.
+
+
+## Phase 5: reviewed Editor mutations
+
+Version 0.5 adds a proposal → local approval → owner compare-and-apply → read-back flow. See [mutation guide](docs/mutations.md). The feature branch qualifies a small public-property adapter set on Creator 3.7.3 plain scene instances. This is not blanket write support for all components or the full structural/prefab/asset/source scope of Task 5.2. Those operations remain refused. No implicit save, source rewrite, auto-unpack or arbitrary method execution is available.
+
+`npm run qualify:mutations` creates an isolated synthetic project and checks live setter behavior, Undo/redo, references, inverse proposals and explicit save/reload. It never targets a registered game project. macOS evidence and Windows coverage must be reported separately.

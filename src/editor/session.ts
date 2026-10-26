@@ -5,7 +5,7 @@ export const readCommands = ['scene.capture', 'schema.list', 'schema.describe'] 
 export type ReadCommand = typeof readCommands[number];
 interface Job {
     id: string;
-    command: ReadCommand;
+    command: string;
     params: Record<string, unknown>;
     revision: string;
 }
@@ -111,6 +111,14 @@ export class EditorSessions {
         const job: Job = { id: randomUUID(), command: command as ReadCommand, params: structuredClone(params), revision: s.hello.state.revision };
         return new Promise((resolve, reject) => { const timer = setTimeout(() => { s.pending.delete(job.id); reject(new KitError('UNAVAILABLE_CAPABILITY', 'Editor read timed out')); }, this.timeout); s.pending.set(job.id, { job, sent: false, resolve, reject, timer }); });
     }
+    requestMutation(projectId:string,id:string,command:string,params:Record<string,unknown>):Promise<unknown> {
+        const selected=this.select(projectId,id),s=this.sessions.get(selected.session)!;
+        if(!selected.features.mutationV1||!['mutation.prepare','mutation.apply','mutation.rollback.prepare'].includes(command)) throw new KitError('UNSUPPORTED_OPERATION','Mutation command not qualified');
+        if(selected.state.importing||selected.state.stage!=='scene') throw new KitError('UNAVAILABLE_CAPABILITY','Mutation requires ready scene');
+        if(s.pending.size>=16) throw new KitError('RESOURCE_LIMIT','Editor queue full');
+        const job:Job={id:randomUUID(),command,params:structuredClone(params),revision:selected.state.revision};
+        return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{s.pending.delete(job.id);reject(new KitError('UNAVAILABLE_CAPABILITY','Owner acknowledgment timed out; write may have occurred'));},this.timeout);s.pending.set(job.id,{job,sent:false,resolve,reject,timer});});
+    }
     poll(id: string, lease: string) {
         const s = this.authenticate(id, lease);
         const jobs = [];
@@ -136,13 +144,21 @@ export class EditorSessions {
             p.reject(new KitError('STALE_REVISION', 'Editor changed during read'));
         else if (response.error) {
             const prefix = response.error.split(':')[0];
-            const code = prefix === 'STALE_REVISION' || prefix === 'RESOURCE_LIMIT' || prefix === 'NOT_FOUND' || prefix === 'AMBIGUOUS_TARGET' ? prefix : 'UNAVAILABLE_CAPABILITY';
+            const code = prefix === 'STALE_REVISION' || prefix === 'RESOURCE_LIMIT' || prefix === 'NOT_FOUND' || prefix === 'AMBIGUOUS_TARGET' || prefix === 'UNSUPPORTED_OPERATION' || prefix === 'SCHEMA_MISMATCH' || prefix === 'CONFLICT' || prefix === 'STALE_HANDLE' ? prefix : 'UNAVAILABLE_CAPABILITY';
             p.reject(new KitError(code, response.error.slice(0, 500)));
         }
         else if (Buffer.byteLength(JSON.stringify(response.data) ?? 'null') > 800000)
             p.reject(new KitError('RESOURCE_LIMIT', 'Editor response exceeds 800 kB; request smaller projection'));
-        else
+        else {
+            if(p.job.command==='mutation.apply') {
+                const state=(response.data as any)?.state;
+                if(!state||typeof state.revision!=='string'||state.document!==s.hello.state.document||state.schema!==s.hello.state.schema||state.stage!=='scene'||typeof state.dirty!=='boolean'||typeof state.importing!=='boolean') {
+                    p.reject(new KitError('INTEGRITY_ERROR','Invalid mutation state acknowledgment'));return {accepted:false};
+                }
+                this.invalidate(s.id);s.hello.state=structuredClone(state);
+            }
             p.resolve(response.data);
+        }
         return { accepted: true };
     }
     disconnect(id: string, lease: string) { const s = this.authenticate(id, lease); this.remove(s, 'Editor disconnected'); return { disconnected: true }; }

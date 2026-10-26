@@ -1,0 +1,75 @@
+{
+  "phase": "P5",
+  "version": "0.5.0",
+  "status": "PASS_SCOPED",
+  "timestamp": "2026-10-26T04:16:32.072Z",
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v22.16.0",
+  "tests": 147,
+  "cases": {
+    "MUT-001": "Actual Creator owner preflight leaves Editor tree/dirty state and source bytes unchanged; diff and scope returned.",
+    "MUT-002": "Actual native apply without local approval refused; actual MCP/HTTP/local CLI exact-hash path and spoof rejection tested with controlled owner.",
+    "MUT-006": "Actual cc.Button nullable serialized target binds null and inverse restores original Node; explicit alias and public setter; native save/reload preserves ref.",
+    "MUT-007": "Actual public setters: Node.position/active, UITransform.width/height, UIOpacity.opacity, Button.interactable/target; qualified read-back, no backing-field assignment.",
+    "MUT-008": "Actual Creator scene-facade Undo/redo restores/advances property edit.",
+    "MUT-009": "Actual save=false leaves disk bytes unchanged; explicit harness save then replacement-owner reload preserves values/references.",
+    "MUT-010": "Actual native repeated proposal/key returns original outcome; actual MCP/HTTP also replays persisted result. Lost-ack restart test uses controlled owner, not native fault injection.",
+    "MUT-020": "RPC/MCP and owner closed operation/field allowlists refuse blanket method/eval/shell execution and unqualified operations."
+  },
+  "completion": {
+    "task51": "Qualified property/reference proposal/approval/apply path implemented",
+    "task52": "Recovery and rename foundation implemented; broad structural/prefab/asset/source/array adapters NOT COMPLETE"
+  },
+  "native": {
+    "creator": "3.7.3",
+    "project": "standalone synthetic only",
+    "proposalNoEditorWrite": true,
+    "proposalNoDiskWrite": true,
+    "unapprovedNativeRefused": true,
+    "idempotentReplay": true,
+    "undoRedo": true,
+    "saveFalseNoDiskWrite": true,
+    "explicitSaveReload": true,
+    "reloadReplacedOwnerIdentity": true,
+    "qualifiedFields": [
+      "cc.Node.position",
+      "cc.Node.active",
+      "cc.Node.name",
+      "cc.Button.target",
+      "cc.Button.interactable",
+      "cc.UITransform.width",
+      "cc.UITransform.height",
+      "cc.UIOpacity.opacity"
+    ]
+  },
+  "controlledTests": [
+    "stale revision and expected-before",
+    "range/type/prefab refusal",
+    "reentrant field/hierarchy changes stop batch",
+    "inverse checkpoint conflict",
+    "durable indeterminate lost acknowledgment and restart",
+    "MCP/HTTP/CLI approval parity",
+    "Creator Electron compatibility"
+  ],
+  "review": {
+    "independent": "NOT_RUN: reviewer failed before review due to account usage limit",
+    "author": "Separate self-review and regression checks; weaker than independent review"
+  },
+  "limitations": [
+    "Windows not run",
+    "Only qualified public fields on plain scene instances",
+    "Nested prefab/add/remove/reparent/array/asset/source mutations unavailable",
+    "No visual/gameplay correctness claim",
+    "Task5.2 full structural/prefab/asset/source/array mutation scope remains incomplete",
+    "Native fault injection, nested-prefab write acceptance and Windows not run",
+    "No safe automatic inverse for partial/indeterminate writes; reconcile manually",
+    "Deferred engine changes may invalidate checkpoints; never silently refresh a rollback baseline",
+    "Local approval is a trusted host channel, not a sandbox against unrestricted same-user shell access"
+  ],
+  "evidence": {
+    "creator": "creator-report.json",
+    "check": "check.txt",
+    "manifest": "manifest.json"
+  }
+}

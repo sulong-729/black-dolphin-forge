@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import {approveProposal} from '../mutation/policy.js';
+import {platformPaths} from '../platform/paths.js';
 import { startServer } from '../daemon/server.js';
 import { startDaemon, stopDaemon, statusDaemon } from '../daemon/lifecycle.js';
 import { call } from '../daemon/client.js';
@@ -33,6 +35,7 @@ async function main() {
             return;
         }
     }
+    if (command === 'approve') { output(await approveProposal(platformPaths().state,sub,args[0])); return; }
     if (command === 'mcp') {
         await runMcp();
         return;
@@ -47,7 +50,7 @@ async function main() {
     else if (command === 'project' && sub === 'list')
         request = createRequest('project.list');
     else {
-        output({ usage: ['daemon start|status|stop', 'project register <root>', 'project list', 'describe [operation]', 'rpc <JSON envelope>', 'mcp'] });
+        output({ usage: ['daemon start|status|stop', 'project register <root>', 'project list', 'describe [operation]', 'rpc <JSON envelope>', 'approve <proposal-id> <reviewed-hash>', 'mcp'] });
         return;
     }
     const result = await call(request,undefined,command==='query'?'cocos_query':undefined);

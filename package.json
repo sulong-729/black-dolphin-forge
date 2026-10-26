@@ -1,6 +1,6 @@
 {
   "name": "cocos-ai-toolkit",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "type": "module",
   "description": "Project-independent, reversible Cocos UI reference tools for AI",
@@ -17,7 +17,8 @@
     "check": "npm run typecheck && npm run build && npm test",
     "schemas": "npm run build && node scripts/generate-schemas.mjs",
     "qualify:editor": "npm run build && node scripts/prepare-editor-qualification.mjs && node scripts/qualify-editor.mjs",
-    "qualify:source": "npm run build && node scripts/qualify-source.mjs && node scripts/verify-p4-mcp.mjs"
+    "qualify:source": "npm run build && node scripts/qualify-source.mjs && node scripts/verify-p4-mcp.mjs",
+    "qualify:mutations": "npm run build && node scripts/qualify-mutations.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",
