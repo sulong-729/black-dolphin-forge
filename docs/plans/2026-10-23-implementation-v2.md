@@ -10,7 +10,7 @@
 
 **Spec:** [Thiết kế v2](../design.md). **Test catalog:** [Danh mục và quy trình](../testing/test-cases.md), [CSV](../testing/test-cases.csv).
 
-**Status:** P1/P2 offline core đã triển khai và kiểm tra trên macOS; P2 có qualification Creator 3.7.3 cho fixture Node/UITransform/Button cụ thể. Xem report từng phase để biết exclusions; Windows CI chưa chạy, P3 có experimental read-only bridge/schema với Inspector, dirty state, prefab stage và custom inheritance trên Creator 3.7.3; lifecycle/nested-prefab đầy đủ, Windows và P6–P8 chưa nghiệm thu; P5 có scoped property/reference/rename + approval/recovery qualification trên macOS, Task5.2 structural/prefab/asset/source/array đầy đủ còn pending. P4 static Source Navigator đã kiểm chứng project/package/selected engine3.7.3 và MCP; source-map coverage giới hạn ở điểm ánh xạ. Prototype không thay thế qualification engine.
+**Status:** P1/P2 offline core đã triển khai và kiểm tra trên macOS; P2 có qualification Creator 3.7.3 cho fixture Node/UITransform/Button cụ thể. Xem report từng phase để biết exclusions; Windows CI chưa chạy, P3 có experimental read-only bridge/schema với Inspector, dirty state, prefab stage và custom inheritance trên Creator 3.7.3; lifecycle/nested-prefab đầy đủ, Windows và P7–P8 chưa nghiệm thu; P6 có scoped read-only web-preview core, actions/native và source correspondence chưa nghiệm thu; P5 có scoped property/reference/rename + approval/recovery qualification trên macOS, Task5.2 structural/prefab/asset/source/array đầy đủ còn pending. P4 static Source Navigator đã kiểm chứng project/package/selected engine3.7.3 và MCP; source-map coverage giới hạn ở điểm ánh xạ. Prototype không thay thế qualification engine.
 
 ## Global constraints
 
@@ -193,7 +193,7 @@ Dưới đây là task boundaries và test cases làm hợp đồng. Chi tiết 
 **Interface:** read-only runtime capture, frame/time window, editor/source correspondence và explicit runtime-only entities.
 **Tests:** RUN-001..RUN-006, UI-001..UI-010.
 - [ ] Assert release không chèn bridge, session/frame consistency, inactive nodes và deferred layout không bị sửa khi inspect.
-- [ ] RED -> implement opt-in preview transport/UI adapter -> GREEN unit/contract.
+- [x] RED -> implement opt-in preview transport/UI adapter -> GREEN unit/contract.
 - [ ] Preview thực: screenshots + geometry ở reference/tall screens; visual không được suy từ serialized Widget values.
 
 ### Task 6.2: Animation/render/physics/audio/input adapters
@@ -202,8 +202,10 @@ Dưới đây là task boundaries và test cases làm hợp đồng. Chi tiết 
 **Interface:** registry-discovered read/call capabilities; typed domain-specific commands and side effect classification.
 **Tests:** DOM-001..DOM-010, RUN-007..RUN-008.
 - [ ] Assert typed target/state preconditions, unavailable packages/platforms rõ, cancel/lifecycle của preview action.
-- [ ] RED -> implement một domain có measured read-back trước, rồi thêm domain khác -> GREEN cho từng nhóm.
+- [x] RED -> read-only domain observations -> GREEN; action adapters chưa triển khai.
 - [ ] UI animation observed, physics/audio/native evidence chỉ ghi khi thật sự đo được; không gọi ordinary fields là profiler toàn backend.
+
+P6 scope: xem `docs/runtime.md` và `docs/testing/evidence/p6/report.json`. Release guard có contract test; release artifact chưa build. Frame/lifecycle reads có test; native actions, pause/step và đầy đủ source correspondence chưa nghiệm thu.
 
 ## Phase P7 — Build, jobs và diagnostics
 

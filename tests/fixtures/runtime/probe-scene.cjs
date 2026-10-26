@@ -1,0 +1,2 @@
+const cc=require('cc'),fs=require('fs'),path=require('path');
+exports.methods={create(project){const Fixture=cc.js.getClassByName('PreviewFixture');if(!Fixture)throw Error('Fixture script compilation pending');const scene=new cc.Scene('RuntimeQualification'),node=new cc.Node('RuntimeFixture');scene.addChild(node);node.addComponent(Fixture);const asset=new cc.SceneAsset();asset.scene=scene;fs.writeFileSync(path.join(project,'assets/RuntimeQualification.scene'),globalThis.EditorExtends.serialize(asset));return true;}};

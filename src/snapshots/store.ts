@@ -70,7 +70,7 @@ export class SnapshotStore {
     } for (const [h, v] of this.handles)
         if (v.snapshot === id)
             this.handles.delete(h); }
-    expireSession(session: string) { for(const [id,entry] of this.entries) if(entry.value.source==='editor'&&entry.value.session===session)this.expire(id); }
+    expireSession(session: string, source:'editor'|'runtime'='editor') { for(const [id,entry] of this.entries) if(entry.value.source===source&&entry.value.session===session)this.expire(id); }
     private sweep() { for (const [id, entry] of this.entries)
         if (this.clock() - entry.last >= this.ttl)
             this.expire(id); }

@@ -45,12 +45,16 @@ async function main() {
         request = JSON.parse(sub);
     else if (command === 'describe')
         request = createRequest('capabilities.describe', sub ? { operation: sub } : {});
+    else if (command === 'preview' && sub === 'permit')
+        request=createRequest('runtime.preview.permit',{origin:args[1]},{projectId:args[0]});
+    else if(command==='preview'&&sub==='revoke')
+        request=createRequest('runtime.preview.revoke',{permit:args[1]},{projectId:args[0]});
     else if (command === 'project' && sub === 'register')
         request = createRequest('project.register', { root: args[0] });
     else if (command === 'project' && sub === 'list')
         request = createRequest('project.list');
     else {
-        output({ usage: ['daemon start|status|stop', 'project register <root>', 'project list', 'describe [operation]', 'rpc <JSON envelope>', 'approve <proposal-id> <reviewed-hash>', 'mcp'] });
+        output({ usage: ['daemon start|status|stop', 'project register <root>', 'project list', 'describe [operation]', 'rpc <JSON envelope>', 'approve <proposal-id> <reviewed-hash>', 'preview permit <project-id> <origin>', 'preview revoke <project-id> <permit-id>', 'mcp'] });
         return;
     }
     const result = await call(request,undefined,command==='query'?'cocos_query':undefined);

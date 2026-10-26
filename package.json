@@ -1,6 +1,6 @@
 {
   "name": "cocos-ai-toolkit",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "description": "Project-independent, reversible Cocos UI reference tools for AI",
@@ -11,8 +11,8 @@
     "cocos-ai": "dist/cli/main.js"
   },
   "scripts": {
-    "build": "tsc",
-    "typecheck": "tsc --noEmit",
+    "build": "tsc && tsc -p tsconfig.runtime.json && tsc -p tsconfig.runtime.json --module System --outDir dist/preview-system",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.runtime.json --noEmit",
     "test": "node scripts/test.mjs",
     "check": "npm run typecheck && npm run build && npm test",
     "schemas": "npm run build && node scripts/generate-schemas.mjs",

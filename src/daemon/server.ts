@@ -1,3 +1,4 @@
+import {runtimeHttp} from '../runtime/transport.js';
 import http from 'node:http';
 import { mkdir, writeFile, readFile, unlink, rename } from 'node:fs/promises';
 import path from 'node:path';
@@ -24,10 +25,11 @@ export async function startServer(options: {
     const server = http.createServer(async (req, res) => {
         const send = (status: number, value: unknown) => { res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }); res.end(JSON.stringify(value)); };
         const port = (server.address() as any)?.port;
-        if (![`127.0.0.1:${port}`, `localhost:${port}`].includes(req.headers.host || '') || req.headers.origin !== undefined) {
+        if (![`127.0.0.1:${port}`, `localhost:${port}`].includes(req.headers.host || '') || req.headers.origin !== undefined && !req.url?.startsWith('/v1/runtime')) {
             send(403, error(403, new KitError('UNAUTHORIZED', 'Local authenticated clients only')));
             return;
         }
+        if(req.url?.startsWith('/v1/runtime')) {await runtimeHttp(core.runtime,req,res);return;}
         const actual = Buffer.from(req.headers.authorization || ''), expected = Buffer.from('Bearer ' + token);
         if (actual.length !== expected.length || !timingSafeEqual(actual, expected)) {
             send(403, error(403, new KitError('UNAUTHORIZED', 'Invalid credentials')));
@@ -84,7 +86,7 @@ export async function startServer(options: {
     await rename(tmp, path.join(state, 'endpoint.json'));
     async function close() { if (closing)
         return closing; closing = (async () => { if (stopTimer)
-        clearTimeout(stopTimer); core.sessions.close(); await new Promise<void>((resolve, reject) => { server.close(e => e ? reject(e) : resolve()); server.closeIdleConnections(); }); try {
+        clearTimeout(stopTimer); core.sessions.close(); core.runtime.close(); await new Promise<void>((resolve, reject) => { server.close(e => e ? reject(e) : resolve()); server.closeIdleConnections(); }); try {
         const current = JSON.parse(await readFile(path.join(state, 'endpoint.json'), 'utf8'));
         if (current.instanceId === instanceId)
             await unlink(path.join(state, 'endpoint.json'));

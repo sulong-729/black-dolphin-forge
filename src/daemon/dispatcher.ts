@@ -1,3 +1,5 @@
+import {RuntimeSessions} from '../runtime/client.js';
+import {registerRuntime,runtimeControls} from '../runtime/service.js';
 import {registerMutations} from '../mutation/apply.js';
 import {mutationControls} from '../mutation/propose.js';
 import { z } from 'zod';
@@ -17,10 +19,11 @@ export function createDispatcher(state: string, identity: {
     pid: number;
 }, stop: () => void) {
     const projects = new ProjectRegistry(state);
+    const runtime = new RuntimeSessions(id=>snapshots.expireSession(id,'runtime'));
     const sessions = new EditorSessions({invalidate:id=>snapshots.expireSession(id)});
-    const snapshots = new SnapshotStore({validate:snapshot=>{if(snapshot.source==='editor'&&snapshot.session){try{sessions.select(snapshot.projectId,snapshot.session);}catch{snapshots.expire(snapshot.id);}}}}), formatter = new Formatter(snapshots);
+    const snapshots = new SnapshotStore({validate:snapshot=>{if(snapshot.source==='runtime'&&snapshot.session){try{runtime.select(snapshot.projectId,snapshot.session);}catch{snapshots.expire(snapshot.id);}}if(snapshot.source==='editor'&&snapshot.session){try{sessions.select(snapshot.projectId,snapshot.session);}catch{snapshots.expire(snapshot.id);}}}}), formatter = new Formatter(snapshots);
     // This local registration permission cannot authorize asset/source/engine writes.
-    const registry = new Registry(cap => cap.name === 'project.register' || bridgeControls.has(cap.name) || mutationControls.has(cap.name));
+    const registry = new Registry(cap => cap.name === 'project.register' || bridgeControls.has(cap.name) || mutationControls.has(cap.name) || runtimeControls.has(cap.name));
     const add = (name: string, inputSchema: z.ZodType, handler: NonNullable<Parameters<Registry['register']>[0]['handler']>, readOnly = true) => registry.register({ name, area: name.split('.')[0], process: 'offline', readOnly, availability: 'available', inputSchema, handler });
     const projectId = (r: RequestEnvelope) => { if (!r.projectId)
         throw new KitError('SCHEMA_MISMATCH', 'projectId is required'); return r.projectId; };
@@ -47,6 +50,7 @@ export function createDispatcher(state: string, identity: {
     registerSource(registry,projects,snapshots,formatter);
     registerEditor(registry,projects,snapshots,sessions);
     registerMutations(registry,sessions,state,identity.instanceId);
+    registerRuntime(registry,projects,snapshots,formatter,runtime);
     async function facade(name: string, input: any) {
         const raw = input && Object.hasOwn(input,'request') ? input.request : createRequest('capabilities.describe', input?.operation ? {operation:input.operation} : {});
         let request: RequestEnvelope;
@@ -66,5 +70,5 @@ export function createDispatcher(state: string, identity: {
         }
         return registry.dispatch(request);
     }
-    return { registry, dispatch: (request: unknown) => registry.dispatch(request), facade, projects, snapshots, sessions };
+    return { registry, dispatch: (request: unknown) => registry.dispatch(request), facade, projects, snapshots, sessions, runtime };
 }

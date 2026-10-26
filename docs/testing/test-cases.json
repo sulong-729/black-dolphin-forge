@@ -2187,8 +2187,8 @@
     "expected": "Bridge present only when explicitly enabled",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#RUN-001; Explicit scoped permit/bootstrap on actual Creator 3.7.3 preview; disabled guard has no engine/network access in contract test. Windows/native NOT_RUN.",
     "task": "6.1/6.2"
   },
   {
@@ -2219,8 +2219,8 @@
     "expected": "Correct runtime-only or evidenced counterpart labeling",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#RUN-003; Runtime namespace and unresolved source/Editor correspondence explicitly labeled; no inferred name matching. Windows/native NOT_RUN.",
     "task": "6.1/6.2"
   },
   {
@@ -2235,8 +2235,8 @@
     "expected": "Observed time window/consistentFrame truthfully reported",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#RUN-004; Actual after-draw captures report same start/end frame and honest observation window. Windows/native NOT_RUN.",
     "task": "6.1/6.2"
   },
   {
@@ -2267,8 +2267,8 @@
     "expected": "New session handles; stale runtime refs rejected",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#RUN-006; Controlled reconnect and A/B/A scene reentry expire snapshots and handles; actual preview capture separately qualified. Windows/native NOT_RUN.",
     "task": "6.1/6.2"
   },
   {
@@ -2283,8 +2283,8 @@
     "expected": "Unavailable with platform reason; no simulated-native claim",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#RUN-007; Web component observations and unavailable native capability explicitly separated; no native execution claim. Windows/native NOT_RUN.",
     "task": "6.1/6.2"
   },
   {
@@ -2299,8 +2299,8 @@
     "expected": "No activation/start/stop/timeScale change caused by read",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#RUN-008; Read adapters never align/layout/activate/play/stop; controlled spy assertions and actual inactive hierarchy. Windows/native NOT_RUN.",
     "task": "6.1/6.2"
   },
   {
@@ -2315,8 +2315,8 @@
     "expected": "activeSelf true activeInHierarchy false; no forced activation",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#UI-001; Actual locally active child under inactive parent retained with hierarchy false. Windows/native NOT_RUN.",
     "task": "6.1"
   },
   {
@@ -2331,8 +2331,8 @@
     "expected": "Local/world geometry with correct coordinate space",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#UI-002; Literal rotated/scaled world-corner assertions plus actual camera render-pixel geometry. Windows/native NOT_RUN.",
     "task": "6.1"
   },
   {
@@ -2379,8 +2379,8 @@
     "expected": "All references map correctly; content offset preserved on read",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#UI-005; ScrollView references/offset read without mutation in actual preview and controlled tests. Windows/native NOT_RUN.",
     "task": "6.1"
   },
   {
@@ -2443,8 +2443,8 @@
     "expected": "Geometry and approved screenshots equivalent; no resize drift",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#UI-009; Actual 720x1280 reference/restored own geometry equal, screenshots retained locally. Windows/native NOT_RUN.",
     "task": "6.1"
   },
   {
@@ -2459,8 +2459,8 @@
     "expected": "Desired anchors/hidden bottom preserved; reference geometry restored",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#UI-010; Actual 720x1920 backing canvas: long height1720, fixed short controls, footer hidden40px; reference restored. Windows/native NOT_RUN.",
     "task": "6.1"
   },
   {
@@ -2475,8 +2475,8 @@
     "expected": "Typed source/runtime states separated",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#DOM-001; Existing Animation states read without getState initialization; actual Pulse fixture and controlled state test. Windows/native NOT_RUN.",
     "task": "6.2"
   },
   {
@@ -2507,8 +2507,8 @@
     "expected": "Capability/version state accurate; no assumed integration",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#DOM-003; Spine/controller integration explicitly unavailable; no package assumed. Windows/native NOT_RUN.",
     "task": "6.2"
   },
   {
@@ -2619,8 +2619,8 @@
     "expected": "Unavailable/partial with reason; never fabricated zero/pass",
     "priority": "P1",
     "automation": "engine-harness",
-    "status": "NOT_RUN",
-    "evidence": "",
+    "status": "PASS",
+    "evidence": "docs/testing/evidence/p6/report.json#DOM-010; Uninitialized/no-op physics velocity and absent native/backend counters explicitly unavailable; controlled regression tests. Windows/native NOT_RUN.",
     "task": "6.2"
   },
   {

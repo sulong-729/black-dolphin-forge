@@ -1,0 +1,149 @@
+{
+  "phase": "P6",
+  "version": "0.6.0",
+  "status": "PASS_SCOPED",
+  "timestamp": "2026-10-26T04:59:30.280Z",
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v22.16.0",
+  "tests": 162,
+  "cases": {
+    "RUN-001": "Explicit scoped permit/bootstrap on actual Creator 3.7.3 preview; disabled guard has no engine/network access in contract test.",
+    "RUN-003": "Runtime namespace and unresolved source/Editor correspondence explicitly labeled; no inferred name matching.",
+    "RUN-004": "Actual after-draw captures report same start/end frame and honest observation window.",
+    "RUN-006": "Controlled reconnect and A/B/A scene reentry expire snapshots and handles; actual preview capture separately qualified.",
+    "RUN-007": "Web component observations and unavailable native capability explicitly separated; no native execution claim.",
+    "RUN-008": "Read adapters never align/layout/activate/play/stop; controlled spy assertions and actual inactive hierarchy.",
+    "UI-001": "Actual locally active child under inactive parent retained with hierarchy false.",
+    "UI-002": "Literal rotated/scaled world-corner assertions plus actual camera render-pixel geometry.",
+    "UI-005": "ScrollView references/offset read without mutation in actual preview and controlled tests.",
+    "UI-009": "Actual 720x1280 reference/restored own geometry equal, screenshots retained locally.",
+    "UI-010": "Actual 720x1920 backing canvas: long height1720, fixed short controls, footer hidden40px; reference restored.",
+    "DOM-001": "Existing Animation states read without getState initialization; actual Pulse fixture and controlled state test.",
+    "DOM-003": "Spine/controller integration explicitly unavailable; no package assumed.",
+    "DOM-010": "Uninitialized/no-op physics velocity and absent native/backend counters explicitly unavailable; controlled regression tests."
+  },
+  "preview": {
+    "creator": "3.7.3",
+    "sizes": [
+      "720x1280",
+      "720x1920",
+      "720x1280"
+    ],
+    "referenceRestoredGeometryEqual": true,
+    "hiddenFooterPixels": 40,
+    "captures": [
+      {
+        "label": "reference",
+        "viewport": {
+          "renderCanvas": {
+            "width": 720,
+            "height": 1280
+          },
+          "frame": {
+            "width": 720,
+            "height": 1280
+          },
+          "visible": {
+            "width": 720,
+            "height": 1280
+          },
+          "coordinateNote": "Engine frame/visible sizes; not an inferred CSS screenshot"
+        },
+        "observed": {
+          "start": 7781.700000017881,
+          "end": 7783.800000011921,
+          "frame": 688,
+          "frameEnd": 688,
+          "consistentFrame": true,
+          "phase": "after-draw"
+        },
+        "nodes": 14
+      },
+      {
+        "label": "tall",
+        "viewport": {
+          "renderCanvas": {
+            "width": 720,
+            "height": 1920
+          },
+          "frame": {
+            "width": 720,
+            "height": 1920
+          },
+          "visible": {
+            "width": 720,
+            "height": 1920
+          },
+          "coordinateNote": "Engine frame/visible sizes; not an inferred CSS screenshot"
+        },
+        "observed": {
+          "start": 19097.20000001788,
+          "end": 19097.600000023842,
+          "frame": 2046,
+          "frameEnd": 2046,
+          "consistentFrame": true,
+          "phase": "after-draw"
+        },
+        "nodes": 14
+      },
+      {
+        "label": "restored",
+        "viewport": {
+          "renderCanvas": {
+            "width": 720,
+            "height": 1280
+          },
+          "frame": {
+            "width": 720,
+            "height": 1280
+          },
+          "visible": {
+            "width": 720,
+            "height": 1280
+          },
+          "coordinateNote": "Engine frame/visible sizes; not an inferred CSS screenshot"
+        },
+        "observed": {
+          "start": 38896.5,
+          "end": 38896.90000000596,
+          "frame": 4422,
+          "frameEnd": 4422,
+          "consistentFrame": true,
+          "phase": "after-draw"
+        },
+        "nodes": 14
+      }
+    ]
+  },
+  "review": {
+    "independent": "Completed; three Important findings reproduced RED and corrected GREEN",
+    "fixed": [
+      "fresh epochs on every scene transition",
+      "stop cancels pending frame callbacks and prevents late responses",
+      "uninitialized/no-op physics velocity cannot fabricate zero"
+    ]
+  },
+  "completion": {
+    "task61": "Scoped web preview observations and UI diagnostics qualified",
+    "task62": "Read-only domain adapters implemented; domain action adapters not complete"
+  },
+  "limitations": [
+    "Windows, native devices and release artifact qualification NOT_RUN",
+    "Runtime actions including pause/step, animation/audio/input/physics writes remain unavailable",
+    "Editor/source correspondence unresolved; no automatic matching",
+    "Component reads are not whole-backend profiling",
+    "Other engine versions/custom getters are unqualified",
+    "P5.2 broad structural/prefab/asset/source/array edits remain incomplete"
+  ],
+  "evidence": {
+    "preview": "preview-report.json",
+    "check": "check.txt",
+    "manifest": "manifest.json",
+    "screenshots": [
+      "reference.png",
+      "tall.png",
+      "restored.png"
+    ]
+  }
+}

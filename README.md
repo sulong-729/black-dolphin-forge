@@ -2,7 +2,7 @@
 
 A standalone foundation for AI ↔ toolkit ↔ Cocos. Core language: TypeScript/Node.js. Python workers and optional Go/C++ workers share versioned contracts; no native worker is needed to run the current core.
 
-**Platform target: macOS and Windows.** Core tests have been run on macOS. A Windows CI job is provided but has not been run or qualified here. Creator 3.7.3 has an experimental read-only Editor bridge. Installers and login auto-start remain later phases.
+**Platform target: macOS and Windows.** Core tests have been run on macOS. A Windows CI job is provided but has not been run or qualified here. Creator 3.7.3 has experimental Editor and opt-in web preview bridges. Installers and login auto-start remain later phases.
 
 ## Install and run
 
@@ -159,3 +159,9 @@ See [Source Navigator](docs/source-navigator.md) and [P4 evidence](docs/testing/
 Version 0.5 adds a proposal → local approval → owner compare-and-apply → read-back flow. See [mutation guide](docs/mutations.md). The feature branch qualifies a small public-property adapter set on Creator 3.7.3 plain scene instances. This is not blanket write support for all components or the full structural/prefab/asset/source scope of Task 5.2. Those operations remain refused. No implicit save, source rewrite, auto-unpack or arbitrary method execution is available.
 
 `npm run qualify:mutations` creates an isolated synthetic project and checks live setter behavior, Undo/redo, references, inverse proposals and explicit save/reload. It never targets a registered game project. macOS evidence and Windows coverage must be reported separately.
+
+## Phase 6: runtime observations
+
+Version 0.6 adds opt-in Creator 3.7.3 web preview capture, session-scoped handles, frame windows and UI diagnostics. Animation, render, physics, audio and input adapters expose qualified read-only component state. See [runtime guide](docs/runtime.md) for scoped credentials, bootstrap and domain limits.
+
+Runtime actions, native profiling and automatic Editor/source correspondence remain unavailable. Captures never force Widget/Layout updates or activate inactive nodes. Actual preview qualification uses an isolated fixture; it does not qualify native devices or Windows.
