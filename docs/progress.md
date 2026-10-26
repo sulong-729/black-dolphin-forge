@@ -244,3 +244,10 @@ Plan: /Users/fe-ducphu/cc30-new-all-in-one/docs/superpowers/plans/2026-10-23-coc
 - Fresh real daemon2-second idle sample:~0.0125% of one core, RSS161005568 bytes; under declared1%/192MiB sample targets, zero connected projects/sessions/jobs. No home-wide scan or workload-wide budget claim.
 - Catalog212:156 scoped PASS/56 NOT_RUN. P8 portable/metrics core delivered; OS registration/login/reboot/sleep-wake, Windows and earlier native/broad write/action exclusions remain. No persistent service installed on user's host.
 - Integration ruling: this delivery does not request merge/push. Keep existing codex/phase8-distribution checkout and local changes; no integration menu/action needed until user requests it. All owned qualification daemons/processes stopped; no game files touched.
+
+## Service control window — 2026-10-26
+
+- Version 0.9.1 adds a plain HTML/CSS/JavaScript dashboard with a separate Node loopback controller, desktop icon, status, start/stop and bounded redacted logs. No UI framework added. macOS LaunchAgent and Windows Task Scheduler commands share the same interface; Windows includes a CMD launcher and shortcut installer.
+- Installed on the user's Mac under Applications. Actual dashboard Stop then Start verified daemon PID changes, status, logs and auto-start enable/disable state. Service was left running and enabled. Login/reboot and actual Windows execution remain NOT_RUN.
+- Three independent review findings reproduced and fixed: overlapping action requests, uninstall after stopping an unloaded LaunchAgent, and abandoned GUI startup locks. Final npm run check: 207/207 PASS, zero skipped; git diff --check PASS.
+- User requested SSH publication to the existing personal repository. No game files or machine credentials are included.

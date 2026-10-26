@@ -1,0 +1,3 @@
+import {appendFile,mkdir} from 'node:fs/promises';import path from 'node:path';import {rotateLog} from './logs.js';
+export function redactLog(text:string,secret?:string){let out=secret?text.split(secret).join('[REDACTED]'):text;return out.replace(/(Bearer\s+)[A-Za-z0-9._~-]+/gi,'$1[REDACTED]').replace(/("(?:token|authorization)"\s*:\s*")[^"\r\n]*(")/gi,'$1[REDACTED]$2');}
+export async function serviceEvent(state:string,action:string,status:string){await mkdir(state,{recursive:true,mode:0o700});const file=path.join(state,'service-control.log');await rotateLog(file);await appendFile(file,`${new Date().toISOString()} ${action} ${status}\n`,{mode:0o600});}

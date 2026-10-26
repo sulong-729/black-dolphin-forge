@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "kitVersion": "0.8.0",
+  "kitVersion": "0.9.1",
   "capabilities": [
     {
       "name": "capabilities.describe",

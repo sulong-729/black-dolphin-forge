@@ -5,7 +5,7 @@ import { facadeTools } from '../contracts/facade.js';
 import { createRequest } from '../contracts/envelopes.js';
 import { call } from '../daemon/client.js';
 export async function runMcp() {
-    const server = new McpServer({ name: 'cocos-ai-toolkit', version: '0.8.0' });
+    const server = new McpServer({ name: 'cocos-ai-toolkit', version: '0.9.1' });
     for (const tool of facadeTools) {
         server.registerTool(tool.name, { description: tool.description, inputSchema: z.object({ request: z.unknown().optional(), operation: z.string().optional() }).strict() }, async (input) => {
             const request: any = Object.hasOwn(input,'request') ? input.request : createRequest('capabilities.describe', input.operation ? { operation: input.operation } : {});

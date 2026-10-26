@@ -59,3 +59,11 @@ This removes only known job output/log/manifest/config files and keeps the journ
 ## Benchmark
 
 Create a Python environment with `benchmarks/requirements.txt` and set `COCOS_BENCH_PYTHON` to its executable. Run `npm run benchmark` and `node benchmarks/idle.mjs`. Input hash, dataset version, tokenizer/version/encoding, actual tokens, schema overhead, cold capture and warm p50/p95 are recorded separately. The comparison is full raw prefab context versus focused toolkit responses including warnings, not an optimized grep workflow. A warm in-process result is not an HTTP/MCP/Editor/native latency guarantee.
+
+## Simple cross-platform control window (0.9)
+
+`node <install-root>/forge.mjs desktop start` opens the same plain HTML/JavaScript dashboard on macOS and Windows. Its separate loopback controller stays available while the service is stopped. The icon authenticates the window with a scoped controller token; the daemon's root token is never put in the page. `desktop stop` closes the controller, not the Cocos service.
+
+Use Bật service / Tắt service for the owned LaunchAgent or Task Scheduler registration. Stop also disables auto-start; start enables it again. Status verifies the daemon's endpoint identity, and log views show only four known files with a 64 KiB tail and credential redaction. Project/build actions are not exposed through this UI.
+
+After installing the runtime, `node scripts/install-desktop.mjs <install-root>` creates a macOS application/Desktop icon or a Windows shortcut. The Windows portable folder also includes `desktop/Launch-Forge.cmd`. Node remains required. The browser UI and OS adapter commands are shared/portable; actual Windows service lifecycle must be verified on Windows and must not be inferred from a Mac test.

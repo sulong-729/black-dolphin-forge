@@ -67,7 +67,7 @@ finally {
     await lock.close();
     await rm(path.join(root, 'install.lock'));
 } }
-const launcher = `import fs from 'node:fs/promises';import path from 'node:path';import {fileURLToPath,pathToFileURL} from 'node:url';\nconst root=path.dirname(fileURLToPath(import.meta.url)),p=JSON.parse(await fs.readFile(path.join(root,'current.json'),'utf8'));if(!/^\\d+\\.\\d+\\.\\d+$/.test(p.version))throw Error('Invalid Forge version');const cli=path.join(root,'versions',p.version,'dist/cli/main.js');process.argv=[process.execPath,cli,...process.argv.slice(2)];await import(pathToFileURL(cli).href);\n`;
+const launcher = `import fs from 'node:fs/promises';import path from 'node:path';import {fileURLToPath,pathToFileURL} from 'node:url';\nconst root=path.dirname(fileURLToPath(import.meta.url)),p=JSON.parse(await fs.readFile(path.join(root,'current.json'),'utf8'));if(!/^\\d+\\.\\d+\\.\\d+$/.test(p.version))throw Error('Invalid Forge version');const cli=path.join(root,'versions',p.version,'dist/cli/main.js');process.env.COCOS_AI_LAUNCHER=path.join(root,'forge.mjs');process.argv=[process.execPath,cli,...process.argv.slice(2)];await import(pathToFileURL(cli).href);\n`;
 async function checkLauncher(root: string) { let s; try {
     s = await lstat(path.join(root, 'forge.mjs'));
 }

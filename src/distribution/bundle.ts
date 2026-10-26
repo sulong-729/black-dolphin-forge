@@ -34,7 +34,7 @@ export async function createBundle(repository: string, out: string) {
         throw new KitError('INTEGRITY_ERROR', 'Unsupported bundle file'); if (rel === 'extensions/cocos-ai-bridge/config.json')
         return; total += s.size; if (total > 512 * 1024 * 1024 || Object.keys(files).length >= 50000)
         throw new KitError('RESOURCE_LIMIT', 'Portable package budget exceeded'); const dest = path.join(out, rel); await mkdir(path.dirname(dest), { recursive: true, mode: 0o700 }); await copyFile(input, dest); files[rel] = { sha256: await fileHash(dest), bytes: s.size }; }
-    for (const p of ['dist', 'adapters/python', 'extensions/cocos-ai-bridge', 'skills/cocos-ai-toolkit', 'README.md', 'docs/operations.md', 'docs/compatibility.md', 'docs/acceptance.md', 'docs/runtime.md', 'docs/build.md'])
+    for (const p of ['dist', 'desktop/public', 'desktop/assets', 'desktop/windows-shortcut.ps1', 'desktop/Launch-Forge.cmd', 'scripts/install-desktop.mjs', 'adapters/python', 'extensions/cocos-ai-bridge', 'skills/cocos-ai-toolkit', 'README.md', 'docs/operations.md', 'docs/compatibility.md', 'docs/acceptance.md', 'docs/runtime.md', 'docs/build.md'])
         await copy(p);
     for (const [p, info] of Object.entries(lock.packages ?? {}) as [
         string,
