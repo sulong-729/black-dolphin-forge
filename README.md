@@ -2,7 +2,7 @@
 
 A standalone foundation for AI ↔ toolkit ↔ Cocos. Core language: TypeScript/Node.js. Python workers and optional Go/C++ workers share versioned contracts; no native worker is needed to run the current core.
 
-**Platform target: macOS and Windows.** Core tests have been run on macOS. A Windows CI job is provided but has not been run or qualified here. Creator 3.7.3 has experimental Editor and opt-in web preview bridges. Installers and login auto-start remain later phases.
+**Platform target: macOS and Windows.** Core tests have been run on macOS. A Windows CI job is provided but has not been run or qualified here. Creator 3.7.3 has experimental Editor and opt-in web preview bridges. Version0.8 adds portable packaging and explicit user-service plans; actual OS login/reboot qualification remains pending.
 
 ## Install and run
 
@@ -171,3 +171,11 @@ Runtime actions, native profiling and automatic Editor/source correspondence rem
 Version 0.7 adds locally configured Creator 3.7.3 Web Mobile jobs using a Python 3 worker. Build proposals share exact local hash approval with Editor mutations. Jobs persist state, provide owned cancellation/timeout, reject stale inputs and expose bounded logs/output manifests. Interrupted projects require explicit local reconciliation. See [build guide](docs/build.md).
 
 Actual synthetic Web Mobile build and a separate browser smoke check are qualified on macOS. Toolkit output-cache reuse, Android/iOS build/install/launch, profiler capture, full diagnostic component correspondence and Windows execution remain unavailable or unqualified. No native-device claim follows from the Web build.
+
+## Phase 8: distribution and measured scope
+
+Version0.8 adds checksummed portable packaging, versioned install/upgrade/rollback/uninstall, explicit macOS/Windows user-service plans, startup daemon-log rotation, terminal artifact pruning and a distributable AI skill. Prefer the kit for Cocos operations; direct file/CLI/engine fallback remains allowed when genuinely necessary and authorized.
+
+See [operations](docs/operations.md), [compatibility](docs/compatibility.md), [acceptance boundaries](docs/acceptance.md) and [AI skill](skills/cocos-ai-toolkit/SKILL.md). `npm run package:portable` creates a runtime directory with vendored dependencies. No persistent OS service is installed by packaging or normal daemon start.
+
+P8 measurements use a fixed5000-node synthetic prefab and five tasks with a named tokenizer. Context baseline is the full raw prefab; warm latency is in-process. Native/Windows/login/reboot acceptance and broader earlier-phase exclusions remain separate. Reports record actual numbers rather than promising universal savings.

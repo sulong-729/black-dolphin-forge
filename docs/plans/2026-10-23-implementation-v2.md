@@ -10,7 +10,7 @@
 
 **Spec:** [Thiết kế v2](../design.md). **Test catalog:** [Danh mục và quy trình](../testing/test-cases.md), [CSV](../testing/test-cases.csv).
 
-**Status:** P1/P2 offline core đã triển khai và kiểm tra trên macOS; P2 có qualification Creator 3.7.3 cho fixture Node/UITransform/Button cụ thể. Xem report từng phase để biết exclusions; Windows CI chưa chạy, P3 có experimental read-only bridge/schema với Inspector, dirty state, prefab stage và custom inheritance trên Creator 3.7.3; lifecycle/nested-prefab đầy đủ, Windows và P8 chưa nghiệm thu; P7 có scoped Web Mobile/Python job core, native platform/profiler còn pending; P6 có scoped read-only web-preview core, actions/native và source correspondence chưa nghiệm thu; P5 có scoped property/reference/rename + approval/recovery qualification trên macOS, Task5.2 structural/prefab/asset/source/array đầy đủ còn pending. P4 static Source Navigator đã kiểm chứng project/package/selected engine3.7.3 và MCP; source-map coverage giới hạn ở điểm ánh xạ. Prototype không thay thế qualification engine.
+**Status:** P1/P2 offline core đã triển khai và kiểm tra trên macOS; P2 có qualification Creator 3.7.3 cho fixture Node/UITransform/Button cụ thể. Xem report từng phase để biết exclusions; Windows CI chưa chạy, P3 có experimental read-only bridge/schema với Inspector, dirty state, prefab stage và custom inheritance trên Creator 3.7.3; lifecycle/nested-prefab đầy đủ, Windows execution chưa nghiệm thu; P8 portable/benchmark core đã qua scoped qualification, persistent service/login/reboot/sleep-wake chưa chạy; P7 có scoped Web Mobile/Python job core, native platform/profiler còn pending; P6 có scoped read-only web-preview core, actions/native và source correspondence chưa nghiệm thu; P5 có scoped property/reference/rename + approval/recovery qualification trên macOS, Task5.2 structural/prefab/asset/source/array đầy đủ còn pending. P4 static Source Navigator đã kiểm chứng project/package/selected engine3.7.3 và MCP; source-map coverage giới hạn ở điểm ánh xạ. Prototype không thay thế qualification engine.
 
 ## Global constraints
 
@@ -236,8 +236,8 @@ P7 supported/excluded scope: `docs/build.md` and `docs/testing/evidence/p7/repor
 **Create:** `service/{macos,windows}/*`, `scripts/{package,install,uninstall}.mjs`, `tests/integration/install.test.ts`, `docs/operations.md`.
 **Interface:** user service install/uninstall/start/status/stop; version/config migration and rollback.
 **Tests:** SVC-005..SVC-010, PKG-001..PKG-004.
-- [ ] Assert clean paths with spaces, user-only permissions, stale PID, restart, rotation và không bundle game secrets/assets.
-- [ ] RED -> implement package/service actions -> GREEN.
+- [x] Scoped portable install/upgrade/uninstall/retention tests, actual macOS installed launcher/daemon smoke, dependency/content allowlist; Windows ACL/OS service lifecycle NOT_RUN.
+- [x] Portable package/rollback and explicit service plan/commands implemented;13 distribution tests GREEN after independent review fixes.
 - [ ] Login/reboot/sleep-wake thật trên macOS và Windows sau khi được phép cài; chưa chạy phải ghi NOT_RUN.
 
 ### Task 8.2: Benchmark/qualification và skill
@@ -245,10 +245,10 @@ P7 supported/excluded scope: `docs/build.md` and `docs/testing/evidence/p7/repor
 **Create:** `benchmarks/{cases,context,latency,idle}.*`, `skills/cocos-ai-toolkit/*`, `docs/{compatibility,acceptance}.md`.
 **Interface:** fixed benchmark dataset/tool/tokenizer versions, replayable qualification report.
 **Tests:** PERF-001..PERF-008, PKG-005..PKG-006.
-- [ ] Assert compaction giữ đủ findings; generated skill/docs khớp capability schemas; no claim vượt evidence.
-- [ ] Chạy context benchmark 5 tác vụ và cached latency <=5.000 nodes; mục tiêu median context giảm >=70%, warm p95 <=300 ms là target, chưa phải kết quả đã đạt.
-- [ ] Full tests/typecheck/build/security-sensitive data scan + Editor/runtime/platform acceptance; blockers P0/P1 phải resolved hoặc capability excluded rõ.
-- [ ] Bàn giao supported/excluded manifest; phát hành/push chỉ khi người dùng yêu cầu.
+- [x] Five exact semantic task checks retain all warnings; generated69-operation reference matches live registry; scope/exclusions explicit.
+- [x] Two actual5000-node/five-task runs with tiktoken0.12.0/cl100k; context median reduction~99.9% versus full raw baseline, warm in-process p95<1ms. These measured scoped results are not universal or HTTP/MCP/Editor/native guarantees.
+- [x] Full typecheck/build/test198/198, bundle allowlist/sentinel and ZIP CRC/hash checks; prior Editor/runtime evidence retained, unqualified native/Windows/service lifecycle explicitly excluded.
+- [x] P8 report + compatibility/acceptance + portable ZIP + AI skill delivered locally; no automatic public release/push.
 
 ## Quy tắc pass/fail và bàn giao
 

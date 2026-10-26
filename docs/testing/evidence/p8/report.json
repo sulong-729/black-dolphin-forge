@@ -1,0 +1,160 @@
+{
+  "phase": "P8",
+  "version": "0.8.0",
+  "status": "PASS_SCOPED",
+  "timestamp": "2026-10-26T07:34:47.982Z",
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v22.16.0",
+  "tests": 198,
+  "cases": {
+    "PKG-001": "Actual3992-file portable package install into paths with spaces, installed launcher/daemon start-query-stop and bridge/worker/skill assets verified on macOS; Windows NOT_RUN.",
+    "PKG-002": "Controlled compatible upgrade retains prior version, rollback works, incompatible state format refused without rewriting configuration; modified launcher/version preflight refuses before destructive work.",
+    "PKG-003": "Controlled and actual uninstall retain state/unrelated notes; all version checks run before deletion, only owned listed files removed.",
+    "PKG-004": "Allowlisted bundle and actual ZIP manifest verified; project/endpoint/approval/config sentinels excluded; dependencies checksummed, not publisher-signed.",
+    "PKG-005": "Generated skill references match all69 actual registry entries and operation schemas; independent skill-consumer exercise confirmed discovery/owner/approval/chunking/fallback guidance. Baseline already conservative, no claimed agent improvement.",
+    "PKG-006": "Compatibility/acceptance/report retain separate inventory/read/roundtrip/write and platform scope; no whole-engine write coverage claim.",
+    "PERF-001": "Actual five-task5000-node synthetic context measurement records input hash, dataset, tiktoken0.12.0/cl100k and semantic answers/warnings.",
+    "PERF-002": "Actual median context reduction and >=70% target outcome reported against full raw prefab baseline, not an optimized grep workflow or universal saving.",
+    "PERF-003": "100 actual warm cached in-process dispatcher samples; p50/p95 and <=300ms target explicitly scoped; HTTP/MCP/Editor/native/process startup excluded.",
+    "PERF-004": "Cold graph capture and server construction separated from warm samples; process import/startup not included in warm metric.",
+    "PERF-005": "Five exact semantic assertions and complete snapshot warnings survive compaction in each case; no finding is removed for token savings.",
+    "PERF-006": "Actual5000-node capture fits enforced source/snapshot budgets; prior core tests exercise explicit resource refusal. Not an unbounded-project promise.",
+    "PERF-007": "Actual one-operation schema bytes/tokens measured separately; no upstream Unity saving copied.",
+    "PERF-008": "Two runs have identical dataset hash/tokenizer/environment metadata; per-run metrics retained and UUID/context variance remains visible.",
+    "SVC-008": "Daemon-owned startup rotation retains one prior regular log; symlinks refused; OS-owned service stdout/stderr explicitly excluded and inherited-fd regression verified.",
+    "SVC-009": "Explicit local pruning refuses live/interrupted jobs, removes known terminal artifacts and retains journal/idempotency identity and unrelated notes; no automatic live-work deletion.",
+    "SVC-010": "Measured fresh real daemon2-second idle CPU/RSS with declared1% core/192MiB targets. Zero connected projects/sessions/jobs; no all-workload or Windows guarantee."
+  },
+  "completion": {
+    "task81": "Portable directory/ZIP, install/upgrade/rollback/uninstall and explicit service plans/commands implemented; actual OS registration/login/reboot/sleep-wake/Windows NOT_RUN",
+    "task82": "Five-task context/schema/warm/cold/idle measurements, parity-checked skill and coverage manifest delivered"
+  },
+  "package": {
+    "status": "PASS_SCOPED",
+    "version": "0.8.0",
+    "files": 3992,
+    "platform": "darwin",
+    "arch": "arm64",
+    "node": "v22.16.0",
+    "checks": {
+      "manifest": true,
+      "installedLauncher": true,
+      "pathsWithSpacesAndXmlCharacters": true,
+      "daemonStartQueryStop": true,
+      "credentialsOmittedFromCli": true,
+      "workerBridgeSkillFound": true,
+      "uninstallPreservedState": true
+    },
+    "serviceInstallation": "NOT_RUN",
+    "windows": "NOT_RUN",
+    "timestamp": "2026-10-26T07:32:16.504Z"
+  },
+  "archive": {
+    "status": "PASS",
+    "path": "/Users/fe-ducphu/cocos-ai-toolkit/output/black-dolphin-forge-0.8.0.zip",
+    "bytes": 10217924,
+    "sha256": "7ea11e63e5f69f62ba5d600ff0117332702f628247f42faa5a3a790881df92ca",
+    "entries": 3993,
+    "bundleManifestSha256": "5d25a53086ec943e13edf21a3ef918226188c55496b7d40e96724768853b56c8",
+    "allowlistVerified": true,
+    "crcVerified": true
+  },
+  "benchmark": {
+    "datasetVersion": "cocos-ui-bench-v1",
+    "datasetHash": "ea0b9bb63bcc5866d3aa8c9472fdd22e64684bfdc5336c2a79ba245beca96922",
+    "nodes": 5000,
+    "tokenizer": {
+      "name": "tiktoken",
+      "version": "0.12.0",
+      "encoding": "cl100k_base",
+      "python": "3.12.14",
+      "dependencies": {
+        "tiktoken": "0.12.0",
+        "regex": "2026.9.29",
+        "requests": "2.34.2"
+      }
+    },
+    "context": {
+      "baseline": "Full raw prefab per task versus focused kit response, capture metadata and ALL snapshot warnings; not optimized grep baseline",
+      "medianReductionPercent": 99.90286415648777,
+      "targetReductionPercent": 70,
+      "targetMet": true,
+      "semanticChecks": 5,
+      "warningsPreserved": true
+    },
+    "latency": {
+      "startupMs": 8.29725000000002,
+      "coldCaptureMs": 179.68587499999995,
+      "warmP50": 0.15325000000007094,
+      "warmP95": 0.23491699999999582,
+      "samples": 100,
+      "targetP95Ms": 300,
+      "targetMet": true,
+      "transport": "In-process actual dispatcher; excludes HTTP/MCP/network/process startup and native engine"
+    },
+    "schema": {
+      "bytes": 2326,
+      "tokens": 542
+    },
+    "repeat": {
+      "firstMedianReduction": 99.90376475371238,
+      "secondMedianReduction": 99.90286415648777,
+      "firstWarmP95": 0.2890830000000051,
+      "secondWarmP95": 0.23491699999999582
+    },
+    "environment": {
+      "node": "v22.16.0",
+      "platform": "darwin",
+      "arch": "arm64",
+      "cpu": "Apple M1 Pro"
+    }
+  },
+  "idle": {
+    "status": "MEASURED",
+    "wallMs": 2001.349375,
+    "cpuMs": 0.25,
+    "cpuPercent": 0.012491572092453872,
+    "rss": 161005568,
+    "targets": {
+      "cpuPercent": 1,
+      "rssBytes": 201326592
+    },
+    "targetMet": true,
+    "environment": {
+      "node": "v22.16.0",
+      "platform": "darwin",
+      "arch": "arm64"
+    },
+    "scope": "Fresh real daemon process, zero projects/Editor/runtime/jobs connected; 2-second sample, not an all-workload guarantee",
+    "timestamp": "2026-10-26T07:22:07.421Z"
+  },
+  "review": {
+    "independent": "One completed whole-P8 review; two P1/two P2 reproduced RED and corrected with13 focused distribution tests GREEN. No independent re-review claimed.",
+    "fixed": [
+      "Launcher ownership checked before upgrade and replaced atomically",
+      "Uninstall preflights all versions before deleting anything",
+      "Manifest read/parse bounded before allocation",
+      "OS-owned inherited service log descriptors excluded from daemon rotation"
+    ],
+    "skill": "Final consumer selected editor.sessions discovery and qualified owner/approval; direct fallback allowed when genuinely necessary"
+  },
+  "limitations": [
+    "Windows and actual persistent OS service registration/login/reboot/sleep-wake NOT_RUN",
+    "No signed/notarized installer or bundled Node/Python/Creator runtime; checksums are not publisher authentication",
+    "Synthetic full-raw context baseline; no universal token saving or network/MCP/Editor/native latency promise",
+    "2-second idle window, zero active projects/sessions/jobs; no all-workload resource guarantee",
+    "Startup rotation is count/threshold retention for daemon log only; OS service/extension logs need separate retention",
+    "Earlier P5.2 broad mutation, P6 runtime actions/native correspondence, P7 device SDK/profiler/capture exclusions remain",
+    "AI kit use is preferred, not mandatory; necessary direct authorized fallback remains allowed"
+  ],
+  "evidence": {
+    "package": "package-report.json",
+    "archive": "archive-report.json",
+    "benchmark": "benchmark-report.json",
+    "benchmarkFirst": "benchmark-report-first.json",
+    "idle": "idle-report.json",
+    "check": "check.txt",
+    "manifest": "manifest.json"
+  }
+}

@@ -1,3 +1,4 @@
+import {rotateLog} from '../service/logs.js';
 import { mkdir, open, readFile, unlink, stat } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -46,6 +47,7 @@ export async function startDaemon(state = platformPaths().state) {
         const active = await statusDaemon(state);
         if (active)
             return active;
+        await rotateLog(path.join(state,'daemon.log'));
         const log = await open(path.join(state, 'daemon.log'), 'a', 0o600);
         let error: Error | undefined;
         const child = spawn(process.execPath, [fileURLToPath(new URL('../cli/main.js', import.meta.url)), 'daemon', 'serve'], { detached: true, windowsHide: true, stdio: ['ignore', log.fd, log.fd], env: { ...process.env, COCOS_AI_STATE_DIR: state } });

@@ -1,0 +1,505 @@
+{
+  "formatVersion": 1,
+  "kitVersion": "0.8.0",
+  "capabilities": [
+    {
+      "name": "capabilities.describe",
+      "area": "capabilities",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "project.register",
+      "area": "project",
+      "process": "offline",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "project.list",
+      "area": "project",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "project.inspect",
+      "area": "project",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "document.capture",
+      "area": "document",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "snapshot.query",
+      "area": "snapshot",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "snapshot.batch",
+      "area": "snapshot",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "artifact.read",
+      "area": "artifact",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "daemon.status",
+      "area": "daemon",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "daemon.stop",
+      "area": "daemon",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "build.doctor",
+      "area": "build",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "build.propose",
+      "area": "build",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "job.start",
+      "area": "job",
+      "process": "build-worker",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "job.status",
+      "area": "job",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "job.cancel",
+      "area": "job",
+      "process": "build-worker",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "job.artifact.read",
+      "area": "job",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "diagnostics.source",
+      "area": "diagnostics",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "diagnostics.analyze",
+      "area": "diagnostics",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "android.install",
+      "area": "android",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "unavailable",
+      "description": "No qualified explicit device/SDK/telemetry adapter; no device selected or counter fabricated."
+    },
+    {
+      "name": "android.launch",
+      "area": "android",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "unavailable",
+      "description": "No qualified explicit device/SDK/telemetry adapter; no device selected or counter fabricated."
+    },
+    {
+      "name": "ios.install",
+      "area": "ios",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "unavailable",
+      "description": "No qualified explicit device/SDK/telemetry adapter; no device selected or counter fabricated."
+    },
+    {
+      "name": "ios.launch",
+      "area": "ios",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "unavailable",
+      "description": "No qualified explicit device/SDK/telemetry adapter; no device selected or counter fabricated."
+    },
+    {
+      "name": "diagnostics.profiler",
+      "area": "diagnostics",
+      "process": "build-worker",
+      "readOnly": true,
+      "availability": "unavailable",
+      "description": "No qualified explicit device/SDK/telemetry adapter; no device selected or counter fabricated."
+    },
+    {
+      "name": "graph.capture",
+      "area": "graph",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "graph.query",
+      "area": "graph",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "graph.resolve",
+      "area": "graph",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "graph.inspect",
+      "area": "graph",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "graph.restore",
+      "area": "graph",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "graph.original",
+      "area": "graph",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "graph.apply",
+      "area": "graph",
+      "process": "offline",
+      "readOnly": false,
+      "availability": "unavailable"
+    },
+    {
+      "name": "source.capture",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "source.classes",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "component.source",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "symbol.definition",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "type.hierarchy",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "symbol.references",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "source.dynamic",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "method.body",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "source.slice",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "source.mapping",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "event.bindings",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "source.dependencies",
+      "area": "source",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "editor.connect",
+      "area": "editor",
+      "process": "offline",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "editor.heartbeat",
+      "area": "editor",
+      "process": "offline",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "editor.poll",
+      "area": "editor",
+      "process": "offline",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "editor.respond",
+      "area": "editor",
+      "process": "offline",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "editor.disconnect",
+      "area": "editor",
+      "process": "offline",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "editor.sessions",
+      "area": "editor",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "editor.query",
+      "area": "editor",
+      "process": "editor-scene",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "editor.propose",
+      "area": "editor",
+      "process": "editor-scene",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "editor.rollback.propose",
+      "area": "editor",
+      "process": "editor-scene",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "editor.mutation.status",
+      "area": "editor",
+      "process": "editor-scene",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "editor.apply",
+      "area": "editor",
+      "process": "editor-scene",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "runtime.preview.permit",
+      "area": "runtime",
+      "process": "offline",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "runtime.preview.revoke",
+      "area": "runtime",
+      "process": "offline",
+      "readOnly": false,
+      "availability": "available"
+    },
+    {
+      "name": "runtime.sessions",
+      "area": "runtime",
+      "process": "offline",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "runtime.capture",
+      "area": "runtime",
+      "process": "preview-runtime",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "runtime.query",
+      "area": "runtime",
+      "process": "preview-runtime",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "ui.diagnose",
+      "area": "ui",
+      "process": "preview-runtime",
+      "readOnly": true,
+      "availability": "available"
+    },
+    {
+      "name": "runtime.pause",
+      "area": "runtime",
+      "process": "preview-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    },
+    {
+      "name": "runtime.step",
+      "area": "runtime",
+      "process": "preview-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    },
+    {
+      "name": "animation.play",
+      "area": "animation",
+      "process": "preview-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    },
+    {
+      "name": "animation.stop",
+      "area": "animation",
+      "process": "preview-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    },
+    {
+      "name": "physics.configure",
+      "area": "physics",
+      "process": "preview-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    },
+    {
+      "name": "audio.play",
+      "area": "audio",
+      "process": "preview-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    },
+    {
+      "name": "audio.stop",
+      "area": "audio",
+      "process": "preview-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    },
+    {
+      "name": "input.simulate",
+      "area": "input",
+      "process": "preview-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    },
+    {
+      "name": "render.material.set",
+      "area": "render",
+      "process": "preview-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    },
+    {
+      "name": "native.profiler",
+      "area": "native",
+      "process": "native-runtime",
+      "readOnly": false,
+      "availability": "unavailable",
+      "description": "No qualified action/device adapter; inspecting fields does not authorize side effects."
+    }
+  ],
+  "registryHash": "df873191bdfe2791d53b0107289f1b430f1929d0aa178dd77df9914d804bd3e6"
+}

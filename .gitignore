@@ -20,3 +20,6 @@ docs/testing/evidence/**
 
 # Local bridge connection configuration
 extensions/cocos-ai-bridge/config.json
+
+__pycache__/
+*.pyc
