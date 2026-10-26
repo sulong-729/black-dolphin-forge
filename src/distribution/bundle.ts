@@ -18,7 +18,7 @@ export async function createBundle(repository: string, out: string) {
         bytes: number;
     }> = {};
     let total = 0;
-    async function copy(rel: string) { const input = path.join(repository, rel); let s; try {
+    async function copy(rel: string) { if (path.basename(rel) === '.DS_Store') return; const input = path.join(repository, rel); let s; try {
         s = await lstat(input);
     }
     catch (e) {

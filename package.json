@@ -1,6 +1,6 @@
 {
   "name": "cocos-ai-toolkit",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "private": true,
   "type": "module",
   "description": "Project-independent, reversible Cocos UI reference tools for AI",
@@ -22,7 +22,9 @@
     "qualify:build": "npm run build && node scripts/qualify-build.mjs",
     "skill": "npm run build && node scripts/generate-skill.mjs",
     "package:portable": "npm run skill && node scripts/package.mjs",
-    "benchmark": "npm run build && node benchmarks/run.mjs"
+    "benchmark": "npm run build && node benchmarks/run.mjs",
+    "export:skill": "npm run skill && node scripts/export-skill.mjs",
+    "package:installers": "npm run package:portable && node scripts/build-installers.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",

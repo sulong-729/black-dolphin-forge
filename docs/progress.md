@@ -251,3 +251,11 @@ Plan: /Users/fe-ducphu/cc30-new-all-in-one/docs/superpowers/plans/2026-10-23-coc
 - Installed on the user's Mac under Applications. Actual dashboard Stop then Start verified daemon PID changes, status, logs and auto-start enable/disable state. Service was left running and enabled. Login/reboot and actual Windows execution remain NOT_RUN.
 - Three independent review findings reproduced and fixed: overlapping action requests, uninstall after stopping an unloaded LaunchAgent, and abandoned GUI startup locks. Final npm run check: 207/207 PASS, zero skipped; git diff --check PASS.
 - User requested SSH publication to the existing personal repository. No game files or machine credentials are included.
+
+## Skill download and installers — 2026-10-26
+
+- Version 0.9.2 adds authenticated Download Skill to the existing plain dashboard. Export is a dependency-free ZIP with SKILL.md, capability schema and four linked workflow documents; no endpoint or user state is exported. The skill's linked docs are now self-contained.
+- macOS PKG installs the launcher app into Applications; first launch installs/updates the per-user runtime and enables the service. Windows ZIP includes Install.cmd using the same Node setup, Task Scheduler registration and shortcut creation. Node 22.16+ remains a prerequisite; Python is only needed to build installer ZIPs or run build-worker workflows. No bundled Node, MSI/EXE, signing or notarization is claimed.
+- Qualification found pkgbuild strips .DS_Store while the original portable manifest included it. Regression reproduced RED, then bundler excludes that metadata. Final expanded PKG payload passes real runtime installation and service upgrade on this Mac; Installer GUI/receipt flow and actual Windows execution remain NOT_RUN.
+- Final npm run check: 208/208 PASS, zero skipped. Skill validator PASS; archive CRC checks PASS; PKG expanded, app plist/shell validated. Isolated runtime install and same-version repeat PASS. Actual dashboard button downloaded a valid complete ZIP into Downloads. Service left running/enabled on 0.9.2.
+- Source published on main; installer branch carries versioned macOS PKG, Windows ZIP/CMD installer, skill ZIP and SHA256SUMS. No game files or private user credentials included.

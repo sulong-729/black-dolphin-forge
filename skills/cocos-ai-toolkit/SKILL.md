@@ -43,4 +43,4 @@ After restart, interrupted jobs do not replay. Inspect old workers/output before
 
 Current Windows support consists of portable paths/contracts and service plan generation; actual Windows installation, login/reboot and native execution are unqualified. OS service installation is a separate explicit local command, not an automatic effect of reading a project or using this skill. Preserve user state during package upgrade/uninstall.
 
-Consult the bundled `docs/operations.md`, `docs/compatibility.md`, `docs/runtime.md` or `docs/build.md` only for the workflow you need. Do not claim whole-engine write coverage, 100% ID elimination, guaranteed crash prevention or universal token/performance savings.
+Consult the bundled [operations](references/docs/operations.md), [compatibility](references/docs/compatibility.md), [runtime](references/docs/runtime.md) or [build](references/docs/build.md) only for the workflow you need. Do not claim whole-engine write coverage, 100% ID elimination, guaranteed crash prevention or universal token/performance savings.

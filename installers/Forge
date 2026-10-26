@@ -1,0 +1,17 @@
+#!/bin/sh
+RESOURCES="$(CDPATH= cd -- "$(dirname -- "$0")/../Resources" && pwd)"
+NODE="$(command -v node 2>/dev/null)"
+if [ -z "$NODE" ]; then
+  for candidate in /usr/local/bin/node /opt/homebrew/bin/node; do
+    if [ -x "$candidate" ]; then NODE="$candidate"; break; fi
+  done
+fi
+if [ -z "$NODE" ]; then
+  /usr/bin/osascript -e 'display alert "Black Dolphin Forge" message "Install Node.js 22.16 or newer from nodejs.org, then open this app again."'
+  exit 1
+fi
+mkdir -p "$HOME/Library/Logs"
+if ! "$NODE" "$RESOURCES/setup.mjs" "$RESOURCES/bundle" >> "$HOME/Library/Logs/Black Dolphin Forge Installer.log" 2>&1; then
+  /usr/bin/osascript -e 'display alert "Black Dolphin Forge" message "Setup failed. See ~/Library/Logs/Black Dolphin Forge Installer.log for details."'
+  exit 1
+fi

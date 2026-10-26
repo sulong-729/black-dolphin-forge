@@ -67,3 +67,9 @@ Create a Python environment with `benchmarks/requirements.txt` and set `COCOS_BE
 Use Bật service / Tắt service for the owned LaunchAgent or Task Scheduler registration. Stop also disables auto-start; start enables it again. Status verifies the daemon's endpoint identity, and log views show only four known files with a 64 KiB tail and credential redaction. Project/build actions are not exposed through this UI.
 
 After installing the runtime, `node scripts/install-desktop.mjs <install-root>` creates a macOS application/Desktop icon or a Windows shortcut. The Windows portable folder also includes `desktop/Launch-Forge.cmd`. Node remains required. The browser UI and OS adapter commands are shared/portable; actual Windows service lifecycle must be verified on Windows and must not be inferred from a Mac test.
+
+## Skill download and installers (0.9.2)
+
+Use **Download Skill** in the control window to download `cocos-ai-toolkit-skill.zip`, containing the skill, capability reference and linked workflow docs. Extract the `cocos-ai-toolkit` directory into your AI client's skill folder. This download does not configure MCP automatically.
+
+See `installers/README.md` for the macOS PKG and Windows ZIP/CMD installer, prerequisites and qualification limits. Installer artifacts are maintained on the `installer` branch.
