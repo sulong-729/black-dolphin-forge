@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "null"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "boolean"
+        },
+        "value": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "kind",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "number"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "enum"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "bitmask"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "value"
+        },
+        "type": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "$ref": "#"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "type",
+        "fields"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "array"
+        },
+        "elementType": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "elementType",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "ref"
+        },
+        "targetType": {
+          "type": "string",
+          "enum": [
+            "node",
+            "component",
+            "record"
+          ]
+        },
+        "target": {
+          "type": "object",
+          "properties": {
+            "project": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "string",
+              "enum": [
+                "disk",
+                "editor",
+                "runtime"
+              ]
+            },
+            "document": {
+              "type": "string",
+              "minLength": 1
+            },
+            "session": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "revision": {
+              "type": "string",
+              "minLength": 1
+            },
+            "handle": {
+              "type": "string",
+              "minLength": 1
+            },
+            "path": {
+              "type": "string",
+              "format": "starts_with",
+              "pattern": "^\\/.*"
+            },
+            "component": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "ordinal": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "type",
+                "ordinal"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "project",
+            "source",
+            "document",
+            "session",
+            "revision",
+            "handle",
+            "path"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "kind",
+        "targetType",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "asset-ref"
+        },
+        "target": {
+          "type": "object",
+          "properties": {
+            "project": {
+              "type": "string",
+              "minLength": 1
+            },
+            "document": {
+              "type": "string",
+              "minLength": 1
+            },
+            "subAsset": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "expectedType": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "project",
+            "document",
+            "subAsset",
+            "expectedType"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "kind",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "opaque"
+        },
+        "payloadHandle": {
+          "type": "string"
+        },
+        "typeHint": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "payloadHandle",
+        "typeHint",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "unresolved"
+        },
+        "rawHandle": {
+          "type": "string"
+        },
+        "expectedType": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "rawHandle",
+        "expectedType",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

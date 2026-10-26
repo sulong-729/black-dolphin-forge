@@ -1,0 +1,12 @@
+import {mkdir,writeFile,cp,rm} from 'node:fs/promises';import path from 'node:path';import {fileURLToPath} from 'node:url';
+const kit=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const project=path.join(kit,'.superpowers/p3-creator-project'),extension=path.join(project,'extensions/p3-probe');
+await mkdir(extension,{recursive:true});await mkdir(path.join(project,'assets'),{recursive:true});await mkdir(path.join(project,'settings/v2/packages'),{recursive:true});
+await cp(path.join(kit,'tests/fixtures/editor/KitFixtureBase.ts'),path.join(project,'assets/KitFixtureBase.ts'));
+await rm(path.join(project,'qualification-created.json'),{force:true});
+await cp(path.join(kit,'tests/fixtures/editor/KitFixture.ts'),path.join(project,'assets/KitFixture.ts'));
+await writeFile(path.join(project,'package.json'),JSON.stringify({name:'p3-qualification',uuid:'794884ea-20e1-49a2-9ff3-a9be5c5fc05e',creator:{version:'3.7.3'}},null,2));
+await writeFile(path.join(project,'settings/v2/packages/scene.json'),JSON.stringify({scene:{'native-engine':false}}));
+await writeFile(path.join(extension,'package.json'),JSON.stringify({name:'p3-probe',version:'1.0.0',package_version:2,main:'main.cjs',contributions:{scene:{script:'scene.cjs'}}},null,2));
+await cp(path.join(kit,'tests/fixtures/editor/qualification-main.cjs'),path.join(extension,'main.cjs'));await cp(path.join(kit,'tests/fixtures/editor/qualification-scene.cjs'),path.join(extension,'scene.cjs'));await rm(path.join(project,'qualification-command.json'),{force:true});await rm(path.join(project,'qualification-stage.json'),{force:true});
+console.log(project);

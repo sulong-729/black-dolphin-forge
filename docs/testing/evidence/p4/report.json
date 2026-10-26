@@ -1,0 +1,58 @@
+{
+  "phase": "P4",
+  "version": "0.4.0",
+  "status": "PASS_SCOPED",
+  "timestamp": "2026-10-26T03:16:53.031Z",
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v22.16.0",
+  "tests": 131,
+  "cases": {
+    "SRC-001": "Graph-selected serialized component -> registered class/source URI/range, controlled fixture; actual KitFixture source locations also verified.",
+    "SRC-002": "Installed Creator3.7.3 source fingerprint/version; project cc import -> engine Component and inherited getComponent. Static source evidence only.",
+    "SRC-003": "Explicit project-relative package source owner/version/hash; actual fixture package and alias/barrel fixture.",
+    "SRC-004": "d.ts fixture remains declaration-only, no invented method implementation.",
+    "SRC-005": "Actual KitFixtureBase and engine Component inheritance/member resolution plus controlled inherited method fixture.",
+    "SRC-006": "Sealed compiler resolves tsconfig path alias/barrel reexport fixture and records import/source ownership.",
+    "SRC-007": "Flat v3 source-map points and mapped/unmapped boundaries; missing/outside originals and compiled/minified labels explicit. No original-body reconstruction claim.",
+    "SRC-008": "Canonical root/package/engine containment; outside directory/junction escapes refused before version reads; no fallback compiler host reads.",
+    "SRC-009": "Controlled serialized ClickEvent receiver/handler -> method location; componentId precedence, unresolved-ID refusal; static serialized evidence only.",
+    "SRC-010": "Semantic compiler references including imports/aliases/inheritance/literal element access; unrelated same-spelling fields excluded.",
+    "SRC-011": "Computed/string component/event/property targets report unknown dynamic edges; no complete call graph claim.",
+    "SRC-012": "Long method fragments concatenate exactly to original requested characters with hashes and 6000-character budget.",
+    "SRC-013": "Source/config/metadata inventory or content changes invalidate old navigation, including new conflicting asset metadata for graph bindings.",
+    "SRC-014": "Source reads through MCP/dispatcher do not grant mutation; query facade still rejects graph.apply and no source/vendor write operation exists."
+  },
+  "actualSource": {
+    "creator": "3.7.3",
+    "files": 1077,
+    "classes": 1229,
+    "bytes": 10375505,
+    "revision": "8b7ff9e58ee4f07610ec502f764f217b7166f510f6be925310a4626016fce0eb",
+    "engine": "3.7.3:d78932e99897071a4f80137f7e0015cfed84970a2f8023b3601e4c96cfe85b28",
+    "captureMs": 365,
+    "indexMs": 1282
+  },
+  "mcp": {
+    "status": "PASS",
+    "timings": {
+      "source.capture": 1865,
+      "component.source": 248,
+      "method.body": 249,
+      "symbol.references": 492
+    }
+  },
+  "limitations": [
+    "Static source navigation; not Editor/gameplay/native execution qualification",
+    "Windows not run",
+    "External package roots outside registered project unsupported",
+    "Flat source-map points only; embedded/external/indexed maps unavailable",
+    "Custom compiler generators/native-language adapters not implemented",
+    "No source edits or mutation capabilities enabled"
+  ],
+  "evidence": {
+    "source": "source-report.json",
+    "mcp": "mcp-report.json",
+    "check": "check.txt"
+  }
+}

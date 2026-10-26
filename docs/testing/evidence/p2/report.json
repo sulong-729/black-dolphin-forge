@@ -1,0 +1,282 @@
+{
+  "version": "0.2.0",
+  "timestamp": "2026-10-23T09:36:28.273Z",
+  "sourceFingerprint": "d526240821147cf3c89c64f40717fb64e1786e2dfba3f4a866411aa22d5ca23d",
+  "environment": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.6.0",
+    "node": "v22.16.0",
+    "creator": "3.7.3",
+    "engineEvidencePlatform": "macOS",
+    "engineFiles": {
+      "/Applications/Cocos/Creator/3.7.3/CocosCreator.app/Contents/Info.plist": "412abe16a56e3dea48dabea8446f3e985b483b1f7720fe40bf4a858fb8495ff5",
+      "/Applications/Cocos/Creator/3.7.3/CocosCreator.app/Contents/Resources/resources/3d/engine/package.json": "768c59117683bc521927be9aeed9566845a6b62b56eee0321163c91191d5cf9b",
+      "/Applications/Cocos/Creator/3.7.3/CocosCreator.app/Contents/Resources/resources/3d/engine/cocos/serialization/deserialize.ts": "abdfb33b0999ac5a5f2df5245e2e823cb593d7e767bbab9dfa9e5b4fd43ad992"
+    }
+  },
+  "verification": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "tests": {
+      "passed": 89,
+      "failed": 0,
+      "skipped": 0
+    },
+    "schemas": "PASS",
+    "actualMcp": "PASS",
+    "twoSyntheticReadonly": "PASS",
+    "realPrefabReadonly": "PASS",
+    "creatorExactFixture": "PASS",
+    "windows": "NOT_RUN"
+  },
+  "catalogScope": {
+    "planned": 38,
+    "pass": 34,
+    "notRun": 4
+  },
+  "cases": [
+    {
+      "id": "MAP-001",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-002",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-003",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-004",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-005",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-006",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-007",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-008",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-009",
+      "status": "NOT_RUN",
+      "scope": "Runtime-only live identity requires the P6 runtime adapter. P2 offline decoder refusal is tested, not runtime identity creation.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-010",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-011",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-012",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-013",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "MAP-014",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "ASSET-001",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "ASSET-002",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "ASSET-003",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "ASSET-004",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "ASSET-005",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "ASSET-006",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "ASSET-007",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "ASSET-008",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/unit/graph.test.mjs"
+    },
+    {
+      "id": "SER-001",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-002",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-003",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-004",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-005",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-006",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-007",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-008",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-009",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-010",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "SER-011",
+      "status": "PASS",
+      "scope": "Exact Creator3.7.3/macOS Node/UITransform/Button native deserialize and Editor serializer/disk reload fixture; no Inspector/Asset DB/prefab-stage qualification.",
+      "evidence": "creator-report.json"
+    },
+    {
+      "id": "SER-012",
+      "status": "PASS",
+      "scope": "Exact Creator3.7.3/macOS Node/UITransform/Button native deserialize and Editor serializer/disk reload fixture; no Inspector/Asset DB/prefab-stage qualification.",
+      "evidence": "creator-report.json"
+    },
+    {
+      "id": "PREF-001",
+      "status": "PASS",
+      "scope": "P2 offline contract/integration on isolated synthetic fixtures; generic component writes remain unavailable.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "PREF-002",
+      "status": "NOT_RUN",
+      "scope": "Serialized source document nesting/dependency inventory PASS; actual Editor prefab-stage/effective instance inventory NOT_RUN until P3.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "PREF-003",
+      "status": "NOT_RUN",
+      "scope": "Offline missing-source detection PASS; actual Editor missing-prefab behavior NOT_RUN until P3.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    },
+    {
+      "id": "PREF-004",
+      "status": "NOT_RUN",
+      "scope": "Opaque override preservation and mutation refusal PASS offline; actual Editor override acceptance NOT_RUN until P3.",
+      "evidence": "tests/integration/roundtrip.test.mjs"
+    }
+  ],
+  "review": {
+    "importantFound": 5,
+    "importantFixed": 5,
+    "regressions": "8/8 red then green, whole suite89/89",
+    "deferredMinor": "graph.restore continuation currently uses graph.original; modified public restores unavailable"
+  },
+  "limitations": [
+    "Runtime object identity is deferred to P6; disk source cannot impersonate runtime.",
+    "Nested effective overrides, Inspector/prefab stages and Asset DB roundtrip await P3.",
+    "In-place writer and public graph.apply remain unavailable. Public modified restores lack trusted schemas by design.",
+    "Windows CI target exists but has no actual Windows run here.",
+    "Go/C++ workers remain optional and benchmark gated."
+  ],
+  "publication": "No commit/push/service install/publication; no game writes."
+}

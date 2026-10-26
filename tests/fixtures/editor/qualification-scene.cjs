@@ -1,0 +1,4 @@
+const cc=require('cc'),fs=require('fs'),path=require('path');
+exports.methods={
+ createFixture(project){const Custom=cc.js.getClassByName('KitFixture');if(!Custom)throw Error('Fixture script compilation pending');const scene=new cc.Scene('Qualification');const panel=new cc.Node('Panel');scene.addChild(panel);panel.addComponent(cc.UITransform);const button=panel.addComponent(cc.Button);const custom=panel.addComponent(Custom);const hidden=new cc.Node('Hidden');hidden.active=false;panel.addChild(hidden);button.target=hidden;const asset=new cc.SceneAsset();asset.scene=scene;const serialize=globalThis.EditorExtends.serialize;fs.writeFileSync(path.join(project,'assets/Qualification.scene'),serialize(asset));const prefab=new cc.Prefab();prefab.initDefault();prefab.data.name='PrefabPanel';prefab.data.addComponent(cc.UITransform);fs.writeFileSync(path.join(project,'assets/Qualification.prefab'),serialize(prefab));return true;},
+};

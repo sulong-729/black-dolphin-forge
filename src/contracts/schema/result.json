@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "formatVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "unchanged",
+        "partial",
+        "error",
+        "indeterminate"
+      ]
+    },
+    "data": {},
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "revision": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "disk",
+        "editor",
+        "runtime"
+      ]
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "AMBIGUOUS_TARGET",
+            "UNSUPPORTED_OPERATION",
+            "INTEGRITY_ERROR",
+            "SCHEMA_MISMATCH",
+            "UNKNOWN_OPERATION",
+            "UNAVAILABLE_CAPABILITY",
+            "PROCESS_MISMATCH",
+            "AUTHORIZATION_REQUIRED",
+            "FOREIGN_PROJECT",
+            "PATH_OUTSIDE_PROJECT",
+            "STALE_REVISION",
+            "STALE_HANDLE",
+            "SNAPSHOT_EXPIRED",
+            "CURSOR_MISMATCH",
+            "RESOURCE_LIMIT",
+            "NOT_FOUND",
+            "CONFLICT",
+            "REQUEST_TOO_LARGE",
+            "UNAUTHORIZED",
+            "INTERNAL_ERROR"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "recovery": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "recovery"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "formatVersion",
+    "requestId",
+    "status",
+    "warnings"
+  ],
+  "additionalProperties": false
+}

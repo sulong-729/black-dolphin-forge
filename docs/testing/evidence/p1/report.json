@@ -1,0 +1,334 @@
+{
+  "version": "0.1.0",
+  "timestamp": "2026-10-23T08:25:39.983Z",
+  "sourceFingerprint": "6be731a678fab578a6386c61e2ebe1bd9ff8609a71c18630e78829a7f6540911",
+  "git": "No repository/commit created",
+  "environment": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.6.0",
+    "node": "v22.16.0",
+    "engine": "NOT_ATTACHED"
+  },
+  "summary": {
+    "tests": 46,
+    "passed": 46,
+    "failed": 0,
+    "skipped": 0,
+    "catalogCases": 38,
+    "windows": "NOT_RUN",
+    "liveCocos": "NOT_RUN",
+    "nativeWorkers": "NOT_IMPLEMENTED_OPTIONAL"
+  },
+  "checks": {
+    "install": "npm ci --ignore-scripts: PASS",
+    "core": "npm run check: PASS",
+    "schemas": "npm run schemas: PASS"
+  },
+  "cases": [
+    {
+      "id": "REG-001",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "REG-002",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "REG-003",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "REG-004",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "REG-005",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "REG-006",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "Exact-version capability gate using synthetic adapter; engine not attached.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "REG-007",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "REG-008",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "REG-009",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "REG-010",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-001",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-002",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-003",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-004",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/protocol.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-005",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "Synthetic normalized children tree, depth2/max50; not a Cocos scene reader.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-006",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-007",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-008",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-009",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-010",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/integration/transports.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-011",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/integration/transports.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-012",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/integration/transports.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-013",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/integration/transports.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "API-014",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/integration/transports.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-001",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-002",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-003",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-004",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-005",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-006",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "Scaled injected byte-budget refusal plus default 128MiB constant; stored JSON budget, not RSS benchmark.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-007",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-008",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-009",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "Revision-vector validation helper rejects schema/engine drift; no Editor proposal/apply implemented.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SNAP-010",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "Synthetic runtime observation metadata contract only; no runtime bridge/frame capture.",
+      "evidence": "tests/contracts/snapshot.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SVC-001",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/integration/transports.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SVC-002",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/integration/transports.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SVC-003",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/integration/transports.test.mjs",
+      "windows": "NOT_RUN"
+    },
+    {
+      "id": "SVC-004",
+      "status": "PASS",
+      "platform": "macOS",
+      "scope": "P1 core contract/integration with isolated synthetic fixtures; no engine qualification.",
+      "evidence": "tests/integration/transports.test.mjs",
+      "windows": "NOT_RUN"
+    }
+  ]
+}

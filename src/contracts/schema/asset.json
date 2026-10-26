@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "minLength": 1
+    },
+    "document": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subAsset": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expectedType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "project",
+    "document",
+    "subAsset",
+    "expectedType"
+  ],
+  "additionalProperties": false
+}

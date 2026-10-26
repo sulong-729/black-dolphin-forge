@@ -1,0 +1,48 @@
+{
+  "phase": "P3",
+  "version": "0.3.0",
+  "timestamp": "2026-10-26T02:29:28.328Z",
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v22.16.0",
+  "creator": "3.7.3",
+  "status": "PASS_SCOPED",
+  "nativeCases": {
+    "ED-001": "Creator 3.7.3 actual registered project/session/probes and read-only owner routing.",
+    "ED-003": "Actual Inspector set-property + snapshot: disk bytes unchanged, Editor x=99, dirty true, old snapshot expired.",
+    "ED-004": "Actual scene -> prefab editing stage: explicit document/stage, old scene snapshot expired.",
+    "ED-009": "Actual Inspector document node count and live tree parity; DontSave helper subtrees explicitly excluded.",
+    "ED-010": "Native inactive node preserved; descriptor/proxy/metadata tests prove zero introduced getter invocations in scoped fixtures; no general script sandbox claim.",
+    "CMP-001": "Actual engine constructor registry enumerated, aliases deduplicated; all write/roundtrip coverage false.",
+    "CMP-002": "Actual compiled KitFixture TypeScript component discovered and described without hand registration.",
+    "CMP-003": "Actual KitFixtureBase inherited target/flags fields with owning class retained.",
+    "CMP-006": "Actual custom enum and builtin Button enum; exact bitmask preservation contract fixture only.",
+    "CMP-007": "Actual custom Node|null declared type and nullable default; binding unavailable.",
+    "CMP-009": "Actual custom visibility/serializable flags; builtin editorOnly metadata; no runtime qualification.",
+    "CMP-010": "Actual builtin getter properties marked unavailable, writes false; malicious getter/proxy tests are contract fixtures."
+  },
+  "contractOnly": [
+    "ED-002",
+    "ED-005",
+    "ED-006",
+    "ED-007",
+    "ED-008",
+    "CMP-004",
+    "CMP-005",
+    "CMP-008",
+    "CMP-011",
+    "CMP-012",
+    "PREF-005",
+    "PREF-007",
+    "PREF-008"
+  ],
+  "remaining": [
+    "Windows execution",
+    "Two actual Editor instances/reconnect/script reload/import transition lifecycle",
+    "Full nested-prefab override ownership/mounted/removed acceptance",
+    "Package/source identity navigation (P4)",
+    "Generic mutable/roundtrip qualification (P5+)"
+  ],
+  "nativeEvidence": "creator-report.json",
+  "fullCheck": "check.txt"
+}

@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.superpowers/
+*.cocos-map.json
+*.cocos-ui.json
+
+# Local generated artifacts and machine-specific qualification data
+output/
+tmp/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+endpoint.json
+docs/testing/evidence/**
+!docs/testing/evidence/README.md
+!docs/testing/evidence/p*/
+!docs/testing/evidence/p*/report.json

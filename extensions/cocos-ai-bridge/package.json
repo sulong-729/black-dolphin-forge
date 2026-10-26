@@ -1,0 +1,49 @@
+{
+  "name": "cocos-ai-bridge",
+  "version": "0.3.0",
+  "package_version": 2,
+  "type": "commonjs",
+  "main": "main.js",
+  "contributions": {
+    "scene": {
+      "script": "scene.js"
+    },
+    "messages": {
+      "scene:change-node": {
+        "methods": [
+          "changed"
+        ]
+      },
+      "scene:change-component": {
+        "methods": [
+          "changed"
+        ]
+      },
+      "scene:ready": {
+        "methods": [
+          "changed"
+        ]
+      },
+      "scene:close": {
+        "methods": [
+          "changed"
+        ]
+      },
+      "scene:undo": {
+        "methods": [
+          "changed"
+        ]
+      },
+      "scene:redo": {
+        "methods": [
+          "changed"
+        ]
+      },
+      "asset-db:asset-changed": {
+        "methods": [
+          "changed"
+        ]
+      }
+    }
+  }
+}
