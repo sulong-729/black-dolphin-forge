@@ -13,7 +13,7 @@ function endpoint() {
 function rpc(operation, params) {
     const e = endpoint(), body = JSON.stringify({ formatVersion: 1, requestId: crypto.randomBytes(12).toString('hex'), operation, projectId: configuration.projectId, source: 'disk', params });
     return new Promise((resolve, reject) => {
-        const req = http.request(e.url + '/v1/rpc', { method: 'POST', headers: { Authorization: 'Bearer ' + e.token, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) } }, res => {
+        const req = http.request(Object.assign(require('url').parse(e.url + '/v1/rpc'), { method: 'POST', headers: { Authorization: 'Bearer ' + e.token, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) } }), res => {
             let text = '';
             res.on('data', chunk => {
                 text += chunk;
@@ -37,8 +37,18 @@ function rpc(operation, params) {
         req.end(body);
     });
 }
-const scene = (method, args = []) => Editor.Message.request('scene', 'execute-scene-script', { name: 'cocos-ai-bridge', method, args });
+const legacy=!(Editor.Message&&typeof Editor.Message.request==='function');
+const projectRoot=()=>Editor.Project&&Editor.Project.path||Editor.projectInfo&&Editor.projectInfo.path||Editor.projectPath;
+const creatorVersion=()=>Editor.App&&Editor.App.version||require('electron').app.getVersion();
+const scene = (method, args = []) => legacy?new Promise((resolve,reject)=>Editor.Scene.callSceneScript('cocos-ai-bridge','invoke',{method,args},(error,value)=>error?reject(Error(error.message||error)):resolve(value))):Editor.Message.request('scene', 'execute-scene-script', { name: 'cocos-ai-bridge', method, args });
 async function context() {
+    if(legacy){
+        const probe=await scene('legacyContext');
+        const url=probe.rootId?Editor.assetdb.uuidToUrl(probe.rootId):null;
+        const ctx={generation:changeGeneration,document:url||'unsaved:'+probe.rootId,documentId:probe.rootId,rootId:probe.rootId,stage:url&&url.endsWith('.prefab')?'prefab':probe.rootId?'scene':'none',dirty:true,importing:!probe.rootId,assets:{}};
+        for(const id of await scene('sources',[ctx]))ctx.assets[id]=Editor.assetdb.uuidToUrl(id);
+        return ctx;
+    }
     const current = await Editor.Message.request('scene', 'query-current-scene');
     const dirty = await Editor.Message.request('scene', 'query-dirty');
     const ready = await Editor.Message.request('scene', 'query-is-ready') && await Editor.Message.request('asset-db', 'query-ready');
@@ -61,7 +71,7 @@ async function tick() {
     try {
         const ctx = await context(), observation = await scene('observe', [ctx]);
         if (!connection)
-            connection = await rpc('editor.connect', { root: Editor.Project.path, creatorVersion: Editor.App.version, engineVersion: observation.engineVersion, instance, features: observation.features, state: observation.state });
+            connection = await rpc('editor.connect', { root: projectRoot(), creatorVersion: creatorVersion(), engineVersion: observation.engineVersion, instance, features: observation.features, state: observation.state });
         else
             await rpc('editor.heartbeat', { ...credentials(), state: observation.state });
         for (const job of await rpc('editor.poll', credentials())) {
@@ -109,3 +119,5 @@ exports.unload = () => {
 };
 exports.methods = { changed: () => { changeGeneration++; },
     status: () => ({ connected: !!connection, session: connection && connection.session }) };
+
+exports.messages={'scene:ready':exports.methods.changed,'scene:saved':exports.methods.changed,'scene:reloading':exports.methods.changed,'scene:change-node':exports.methods.changed,'scene:change-component':exports.methods.changed};

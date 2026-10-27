@@ -1,0 +1,7 @@
+{
+  "name": "cocos-ai-bridge",
+  "version": "0.10.0",
+  "main": "main.js",
+  "scene-script": "legacy-scene.js",
+  "description": "Black Dolphin Forge read bridge for Creator 2.1.3 and 2.4.15"
+}

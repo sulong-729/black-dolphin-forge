@@ -1,5 +1,9 @@
 import {vector} from './ui.js';
 export function inspectPhysics(cc:any,components:any[]){
+ if(String(cc.ENGINE_VERSION??cc.VERSION??'').startsWith('2.')){
+  const body=cc.RigidBody&&components.find(c=>c.constructor===cc.RigidBody);
+  return {availability:body?'available':'unavailable',body3D:null,body2D:body?{availability:'unavailable',dimension:'2D',configuration:{type:body.type,mass:body.mass,enabled:body.enabled},reason:'Legacy backend velocity adapter not qualified'}:null,colliders:{threeD:{availability:'unavailable',reason:'Legacy 3D physics not qualified'},twoD:{availability:'available',count:cc.Collider?components.filter(c=>Object.getPrototypeOf(c.constructor)===cc.Collider).length:0},scope:'recognized immediate legacy Collider subclasses only'},simulationChanged:false};
+ }
  const body3=cc.RigidBody&&components.find(c=>c.constructor===cc.RigidBody),body2=cc.RigidBody2D&&components.find(c=>c.constructor===cc.RigidBody2D),collider3=cc.Collider&&components.filter(c=>Object.getPrototypeOf(c.constructor)===cc.Collider),collider2=cc.Collider2D&&components.filter(c=>Object.getPrototypeOf(c.constructor)===cc.Collider2D);
  const info=(component:any,dimension:'3D'|'2D')=>{
   if(!component)return null;

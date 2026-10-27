@@ -1,3 +1,4 @@
+import {creatorAdapter} from '../compatibility/versions.js';
 import path from 'node:path';
 import {z} from 'zod';
 import {AssetIndex} from '../assets/index.js';
@@ -13,11 +14,11 @@ export function registerGraphs(registry:Registry,projects:ProjectRegistry,snapsh
  const doc=(snapshot:string,r:RequestEnvelope)=>snapshots.resource(snapshot,{projectId:id(r),source:'disk'}) as GraphDocument;
  const add=(name:string,inputSchema:z.ZodType,handler:any)=>registry.register({name,area:'graph',process:'offline',readOnly:true,availability:'available',inputSchema,handler});
  add('graph.capture',z.object({path:z.string()}).strict(),async(p:{path:string},r:RequestEnvelope)=>{
-  const project=await projects.get(id(r));if(project.creatorVersion!=='3.7.3')throw new KitError('UNAVAILABLE_CAPABILITY','Offline source format targets Creator 3.7.3 only');const file=await projects.resolve(project.id,p.path);if(!['.prefab','.scene'].includes(path.extname(file)))throw new KitError('SCHEMA_MISMATCH','Only source .prefab/.scene assets are supported');
+  const project=await projects.get(id(r));const adapter=creatorAdapter(project.creatorVersion);const file=await projects.resolve(project.id,p.path);if(!['.prefab',adapter.sceneExtension].includes(path.extname(file)))throw new KitError('SCHEMA_MISMATCH','Source extension must match the detected Creator version');
   const raw=(await readDocument(file)).toString('utf8'),assets=await AssetIndex.scan(project.root),document='db://'+path.relative(project.root,file).split(path.sep).join('/');
-  const graph=decode(raw,{project:project.id,source:'disk',document,session:null,creatorVersion:project.creatorVersion},{assets});
+  const graph=decode(raw,{project:project.id,source:'disk',document,session:null,creatorVersion:adapter.version},{assets});
   if(fingerprint((await readDocument(file)).toString())!==graph.view.revision)throw new KitError('STALE_REVISION','Document changed during graph capture');
-  const snapshot=snapshots.capture({projectId:project.id,source:'disk',document,session:null,revision:{data:graph.view.revision,schema:'cocos-source-graph-v1',engine:'3.7.3-unqualified-generic-writer',assets:assets.revision,sourceIndex:'not-indexed'},data:graph.view.entities,warnings:graph.view.findings.map(f=>f.code+': '+f.message)}, {resource:graph,bytes:graph.retainedBytes});
+  const snapshot=snapshots.capture({projectId:project.id,source:'disk',document,session:null,revision:{data:graph.view.revision,schema:'cocos-source-graph-v1',engine:adapter.version+'-unqualified-generic-writer',assets:assets.revision,sourceIndex:'not-indexed'},data:graph.view.entities,warnings:graph.view.findings.map(f=>f.code+': '+f.message)}, {resource:graph,bytes:graph.retainedBytes});
   return {snapshot:snapshot.id,roots:graph.view.roots,coverage:graph.view.coverage,findings:graph.view.findings.length,revision:snapshot.revision};
  });
  const summary=(e:GraphDocument['view']['entities'][number])=>({handle:e.ref.handle,path:e.ref.path,kind:e.kind,type:e.type,...e.name!==undefined?{name:e.name,activeSelf:e.activeSelf,activeInHierarchy:e.activeInHierarchy}:{},children:e.children?.length??0,components:e.components?.map(ref=>ref.component?.type)||[],fields:Object.keys(e.properties),orphan:e.orphan});

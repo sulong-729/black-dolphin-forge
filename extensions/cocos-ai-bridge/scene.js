@@ -1,7 +1,10 @@
 'use strict';
-const cc = require('cc'), crypto = require('crypto');
+const scope=typeof globalThis!=='undefined'?globalThis:typeof window!=='undefined'?window:global;
+const cc = scope.cc || require('cc'), crypto = require('crypto');
 const reflection = require('./reflection');
 const { data, nameOf } = reflection;
+const legacy = String(cc.ENGINE_VERSION || cc.VERSION).startsWith('2.');
+const transformFields = legacy ? ['_position','_scale','_scaleX','_scaleY','_angle','_rotationX','_rotationY','_trs','_contentSize','_anchorPoint','_opacity','_color','_groupIndex'] : ['_lrot','_lscale','_euler','_layer','_mobility'];
 const hash = v => crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const generation = crypto.randomBytes(12).toString('hex');
 const identities = new WeakMap();
@@ -15,7 +18,7 @@ function identity(object) {
 }
 function registry() { const constructors = reflection.classes(cc), schemas = constructors.map(c => reflection.describeType(cc, c)); return { constructors, schemas, hash: hash({ schemas, constructors: constructors.map(identity) }) }; }
 function activeRoot(context = {}) { const scene = cc.director.getScene(); if (!context.rootId)
-    return scene; const manager = globalThis.EditorExtends && globalThis.EditorExtends.Node; if (manager && typeof manager.getNodesInScene === 'function') {
+    return scene; const manager = scope.EditorExtends && scope.EditorExtends.Node; if (manager && typeof manager.getNodesInScene === 'function') {
     const root = data(manager.getNodesInScene(), context.rootId);
     if (root)
         return root;
@@ -84,7 +87,7 @@ function capture(context, observed = [], bindings) {
             };
             chain.unshift({ instanceRoot: refs.get(prefabRoot) || null, source: source || null, sourceStatus: source ? 'resolved' : 'unresolved', overrides: (data(instance, 'propertyOverrides') || []).map(o => ({ target: target(data(o, 'targetInfo')), propertyPath: data(o, 'propertyPath'), owner: refs.get(prefabRoot) || null })), mountedComponents: (data(instance, 'mountedComponents') || []).map(m => ({ target: target(data(m, 'targetInfo')), components: (data(m, 'components') || []).map(c => refs.get(c) || null) })), removedComponents: (data(instance, 'removedComponents') || []).map(target) });
         }
-        return { inventory: node === root ? { scope: 'editor-document', excludedDontSaveSubtrees: excluded } : undefined, path, kind: 'node', name: data(node, '_name'), active: data(node, '_active'), position: reflection.readProperties(cc, node, { fields: [{ name: 'position', backingField: '_lpos', type: 'cc.Vec3' }] }, refs).position, transform: reflection.readProperties(cc, node, { fields: ['_lrot', '_lscale', '_euler', '_layer', '_mobility'].map(name => ({ name, backingField: name, type: 'owner-data' })) }, refs), properties: reflection.readProperties(cc, node, reflection.describeType(cc, data(node, 'constructor')), refs, watch), components, provenance: { state: 'owner-process-observation', instanceChain: chain, serializedValuesIncluded: false, effectiveValues: true, write: false } };
+        return { inventory: node === root ? { scope: 'editor-document', excludedDontSaveSubtrees: excluded } : undefined, path, kind: 'node', name: data(node, '_name'), active: data(node, '_active'), position: reflection.readProperties(cc, node, { fields: [{ name: 'position', backingField: legacy?'_position':'_lpos', type: 'cc.Vec3' }] }, refs).position, transform: reflection.readProperties(cc, node, { fields: transformFields.map(name => ({ name, backingField: name, type: 'owner-data' })) }, refs), properties: reflection.readProperties(cc, node, reflection.describeType(cc, data(node, 'constructor')), refs, watch), components, provenance: { state: 'owner-process-observation', instanceChain: chain, serializedValuesIncluded: false, effectiveValues: true, write: false } };
     });
 }
 function sources(context = {}) {
@@ -109,9 +112,9 @@ function observe(context) {
         throw Error('STALE_REVISION: active document differs from main-process context');
     const r = registry(), observed = [], tree = capture(context, observed);
     const root = activeRoot(context);
-    return { engineVersion: cc.ENGINE_VERSION || cc.VERSION || globalThis.CocosEngine || (globalThis.cc && globalThis.cc.ENGINE_VERSION), features: { scene: typeof cc.director.getScene === 'function', registry: !!(cc.js._nameToClass || cc.js._registeredClassNames || (cc.js.js && cc.js.js._registeredClassNames)), attributes: !!data(cc.Node, '__attrs__'), mutationV1: !!historyFacade() }, state: { document: context.document, stage: root ? context.stage : 'none', revision: hash({ generation, root: identity(root), context, tree, observed, schema: r.hash }), schema: r.hash, dirty: context.dirty, importing: context.importing }, counts: { classes: r.schemas.length, nodes: tree.length } };
+    return { engineVersion: cc.ENGINE_VERSION || cc.VERSION || scope.CocosEngine || (scope.cc && scope.cc.ENGINE_VERSION), features: { scene: typeof cc.director.getScene === 'function', registry: !!(cc.js._nameToClass || cc.js._registeredClassNames || (cc.js.js && cc.js.js._registeredClassNames)), attributes: !!data(cc.Node, '__attrs__'), mutationV1: (cc.ENGINE_VERSION||cc.VERSION)==='3.7.3'&&!!historyFacade() }, state: { document: context.document, stage: root ? context.stage : 'none', revision: hash({ generation, root: identity(root), context, tree, observed, schema: r.hash }), schema: r.hash, dirty: context.dirty, importing: context.importing }, counts: { classes: r.schemas.length, nodes: tree.length } };
 }
-function historyFacade() { try { const facade=globalThis.cce&&globalThis.cce.SceneFacadeManager&&globalThis.cce.SceneFacadeManager.getCurrentFacade(); return facade&&typeof facade.recordNode==='function'&&typeof facade.snapshot==='function'?facade:null; } catch { return null; } }
+function historyFacade() { try { const facade=scope.cce&&scope.cce.SceneFacadeManager&&scope.cce.SceneFacadeManager.getCurrentFacade(); return facade&&typeof facade.recordNode==='function'&&typeof facade.snapshot==='function'?facade:null; } catch (error) { return null; } }
 let mutations;
 function mutationAdapter() {
     if(!mutations) mutations=require('./approval/mutation.cjs').createMutationAdapter({cc,observe,
@@ -121,6 +124,7 @@ function mutationAdapter() {
     return mutations;
 }
 exports.methods = {
+    legacyContext(){const root=cc.director.getScene();return {rootId:root&&data(root,'_id')||null};},
     sources,
     observe,
     mutate(context,job) {

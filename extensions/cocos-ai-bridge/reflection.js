@@ -1,5 +1,8 @@
 'use strict';
-const { isProxy } = require('util').types;
+let isProxy = require('util').types && require('util').types.isProxy;
+// Older Creator 2.1 Electron uses Node 8. Its native util binding exposes proxy details.
+if(typeof isProxy!=='function'){try{const details=process.binding('util').getProxyDetails;if(typeof details==='function')isProxy=value=>details(value)!==undefined;}catch(error){}}
+if(typeof isProxy==='function'){const plain={},probe=new Proxy(plain,{ownKeys(){throw Error('Proxy probe trap');}});if(isProxy(plain)||!isProxy(probe))throw Error('Proxy detection probe failed');}
 const crypto = require('crypto');
 if (typeof isProxy !== 'function')
     throw Error('Proxy detection unavailable; read adapter disabled');
@@ -46,13 +49,15 @@ function fieldsOf(ctor) { const out = new Set(); for (const c of lineage(ctor).r
             out.add(key.split('$_$')[0]);
 } return [...out]; }
 function meta(ctor, field, key) { for (const c of lineage(ctor)) {
-    const attrs = Object.getOwnPropertyDescriptor(c, '__attrs__')?.value;
+    const attrsDescriptor=Object.getOwnPropertyDescriptor(c,'__attrs__');
+    const attrs=attrsDescriptor&&attrsDescriptor.value;
     const d = attrs && descriptor(attrs, field + '$_$' + key);
     if (d && hasOwn(d, 'value'))
         return d.value;
 } return undefined; }
 function owner(cc, ctor, field) { for (const c of lineage(ctor)) {
-    const attrs = Object.getOwnPropertyDescriptor(c, '__attrs__')?.value;
+    const attrsDescriptor=Object.getOwnPropertyDescriptor(c,'__attrs__');
+    const attrs=attrsDescriptor&&attrsDescriptor.value;
     if (keys(attrs).some(k => k.startsWith(field + '$_$')))
         return nameOf(cc, c);
 } return nameOf(cc, ctor); }

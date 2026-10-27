@@ -1,3 +1,4 @@
+import {assertCurrentVersion} from '../compatibility/current.js';
 import { z } from 'zod';
 import { Registry, KitError, type RequestEnvelope } from '../contracts/index.js';
 import { ProjectRegistry } from '../projects/registry.js';
@@ -20,6 +21,7 @@ export function registerEditor(registry: Registry, projects: ProjectRegistry, sn
         const { realpath } = await import('node:fs/promises');
         if (await realpath(p.root) !== registered.root)
             throw new KitError('FOREIGN_PROJECT', 'Editor root differs from registered project');
+        if(registered.creatorVersion && registered.creatorVersion!==p.creatorVersion)throw new KitError('CONFLICT','Editor version differs from project metadata; open the matching Creator version');
         return sessions.connect({ projectId: registered.id, ...p });
     });
     control('editor.heartbeat', lease.extend({ state }), (p: any, r: RequestEnvelope) => { auth(p, r); return sessions.heartbeat(p.session, p.lease, p.state); });
@@ -33,9 +35,11 @@ export function registerEditor(registry: Registry, projects: ProjectRegistry, sn
             z.object({ command: z.literal('schema.describe'), type: z.string().min(1).max(256), schema: z.string() }).strict(),
         ]), handler: async (p, r) => {
             const id = project(r), selected = sessions.select(id, r.session);
+            await assertCurrentVersion(projects,id,selected.creatorVersion);
             if (r.revision && r.revision !== selected.state.revision)
                 throw new KitError('STALE_REVISION', 'Expected Editor revision differs');
             const data = await sessions.request(id, selected.session, p.command, p) as any;
+            await assertCurrentVersion(projects,id,selected.creatorVersion);
             const current = sessions.select(id, selected.session);
             if (current.state.revision !== selected.state.revision || current.state.schema !== selected.state.schema)
                 throw new KitError('STALE_REVISION', 'Editor changed before capture commit');

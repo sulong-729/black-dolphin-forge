@@ -1,18 +1,15 @@
-# Build jobs and diagnostics (0.7)
+# Build jobs and diagnostics (0.10)
 
-P7 qualifies a small Creator 3.7.3 **Web Mobile** pipeline on macOS. TypeScript owns authorization, lifecycle and artifacts; a Python 3 worker runs closed doctor/validate/export tasks over version-1 JSON Lines. No Python package installation is required. Android/iOS install/launch, SDK compilation, profiler capture and native stack/component correspondence remain unavailable. Windows paths and cancellation branches are implemented but not qualified on Windows.
+Creator 3.7.3 and 3.6.3 have actual **Web Mobile** pipeline qualification on macOS. Legacy 2.1.3/2.4.15 build adapters are experimental: 2.4.15 export failed in the installed Creator worker; 2.1.3 is not installed for testing. See [compatibility](compatibility.md). TypeScript owns authorization, lifecycle and artifacts; a Python 3 worker runs closed doctor/validate/export tasks over version-1 JSON Lines. No Python package installation is required. Android/iOS install/launch, SDK compilation, profiler capture and native stack/component correspondence remain unavailable. Windows paths and cancellation branches are implemented but not qualified on Windows.
 
 ## Local configuration
 
-Register the project first. Save a profile JSON outside the project and configure it through the local CLI:
+Register the project first. Creator version comes from current project metadata; the exact installed executable and engine are discovered when paths are omitted. Missing versions do not fall back. Explicit creator/engineRoot paths are optional; an explicit creatorVersion must match metadata. Save a profile JSON outside the project and configure it through the local CLI:
 
 ```json
 {
   "version": 1,
-  "creator": "<absolute Creator executable>",
   "python": "<absolute Python 3 executable>",
-  "engineRoot": "<absolute Creator engine root directory>",
-  "creatorVersion": "3.7.3",
   "target": "web-mobile",
   "scene": "<scene asset UUID>",
   "debug": true,

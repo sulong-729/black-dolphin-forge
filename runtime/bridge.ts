@@ -2,7 +2,7 @@ import {createRuntimeCapture} from './snapshot.js';
 interface Options {cc:any;url:string;token:string;preview:boolean;build:boolean;signal?:AbortSignal;}
 export async function attachPreview(options:Options){
  if(options.preview!==true||options.build!==false)return {enabled:false,stop:async()=>{}};
- if(!/^http:\/\/127\.0\.0\.1:\d+$/.test(options.url)||!/^\w{64}$/.test(options.token)||(options.cc.ENGINE_VERSION??options.cc.VERSION)!=='3.7.3')throw Error('UNAVAILABLE_CAPABILITY: qualified local Cocos preview required');
+ if(!/^http:\/\/127\.0\.0\.1:\d+$/.test(options.url)||!/^\w{64}$/.test(options.token)||!['3.7.3','3.6.3','2.1.3','2.4.15'].includes(options.cc.ENGINE_VERSION??options.cc.VERSION))throw Error('UNAVAILABLE_CAPABILITY: qualified local Cocos preview required');
  const observer=createRuntimeCapture(options.cc);observer.context();
  const instance=typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2),abort=new AbortController();
  let connection:any=null,stopped=false,timer:ReturnType<typeof setTimeout>|undefined;
@@ -32,7 +32,7 @@ export async function attachPreview(options:Options){
   if(closed())return;
   try{
    const ctx=observer.context();
-   if(!connection){const next=await send({action:'connect',instance,epoch:ctx.epoch,scene:ctx.scene,frame:ctx.frame,engineVersion:'3.7.3',preview:true,build:false,features:['ui','animation','render','physics','audio','input']});if(closed())return;connection=next;observer.bindSession(connection.session);}
+   if(!connection){const next=await send({action:'connect',instance,epoch:ctx.epoch,scene:ctx.scene,frame:ctx.frame,engineVersion:options.cc.ENGINE_VERSION??options.cc.VERSION,preview:true,build:false,features:['ui','animation','render','physics','audio','input']});if(closed())return;connection=next;observer.bindSession(connection.session);}
    const jobs=await send({action:'poll',...credentials(),epoch:ctx.epoch,scene:ctx.scene,frame:ctx.frame});if(closed())return;
    for(const job of jobs){
     if(closed())return;let response;

@@ -1,3 +1,4 @@
+import {detectCreatorVersion} from './compatibility/versions.js';
 import { readFile, realpath, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
@@ -11,9 +12,9 @@ export async function within(root:string,file:string):Promise<string>{
  return absolute;
 }
 export async function project(root:string){
- root=await realpath(root);const pkg=JSON.parse(await readFile(path.join(root,'package.json'),'utf8'));
- if(!pkg.creator?.version)throw new Error('Not a Cocos Creator project: missing creator.version');
- return {id:hash(root).slice(0,16),root,creatorVersion:String(pkg.creator.version)};
+ root=await realpath(root);const creatorVersion=await detectCreatorVersion(root);
+ if(!creatorVersion)throw new Error('Not a Cocos Creator project: missing version metadata');
+ return {id:hash(root).slice(0,16),root,creatorVersion};
 }
 export async function* walk(root:string,dir:string=path.join(root,'assets')):AsyncGenerator<string>{
  let entries;try{entries=await readdir(dir,{withFileTypes:true});}catch{return;}

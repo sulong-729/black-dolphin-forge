@@ -38,6 +38,7 @@ export class EditorSessions {
     } = {}) { this.clock = options.clock ?? Date.now; this.ttl = options.ttl ?? 15000; this.timeout = options.timeout ?? 8000; this.invalidate = options.invalidate ?? (() => { }); }
     connect(hello: Handshake) {
         const adapter = qualify(hello);
+        if(hello.creatorVersion!=='3.7.3')hello={...hello,features:{...hello.features,mutationV1:false}};
         this.sweep();
         if (this.sessions.size >= 16)
             throw new KitError('RESOURCE_LIMIT', 'Maximum 16 Editor sessions');

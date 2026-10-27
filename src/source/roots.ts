@@ -1,3 +1,4 @@
+import {creatorAdapter,detectCreatorVersion} from '../compatibility/versions.js';
 import path from 'node:path';
 import { realpath, readdir, lstat } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
@@ -33,7 +34,7 @@ export interface SourceOptions {
 }
 export const within = (root: string, file: string) => { const rel = path.relative(root, file); return rel !== '..' && !rel.startsWith('..' + path.sep) && !path.isAbsolute(rel); };
 const slash = (p: string) => p.split(path.sep).join('/');
-const relevant = (file: string) => /\.(?:[cm]?[jt]sx?|map|meta)$/.test(file) || /(?:^|[/\\])(?:tsconfig[^/\\]*\.json|package\.json)$/.test(file);
+const relevant = (file: string) => /\.(?:[cm]?[jt]sx?|map|meta)$/.test(file) || /(?:^|[/\\])(?:tsconfig[^/\\]*\.json|package\.json|project\.json)$/.test(file);
 const ignored = new Set(['.git', '.superpowers', 'library', 'temp', 'build', 'dist', 'node_modules', '.venv']);
 export async function captureSources(root: string, options: SourceOptions): Promise<SourceCapture> {
     root = await realpath(root);
@@ -73,18 +74,19 @@ export async function captureSources(root: string, options: SourceOptions): Prom
     let engine = 'not-selected';
     if (options.engineRoot) {
         const canonical = await realpath(options.engineRoot);
-        const versionFile = path.join(canonical, 'cocos/core/global-exports.ts');
+        const adapter=creatorAdapter(options.creatorVersion);
+        const versionFile = path.join(canonical, adapter.engineVersionFile);
         const versionCanonical = await realpath(versionFile);
         if (!within(canonical, versionCanonical))
             throw new KitError('PATH_OUTSIDE_PROJECT', 'Engine version source escapes selected root');
         const versionText = (await readDocument(versionCanonical)).toString();
-        const version = /\bconst\s+engineVersion\s*=\s*['"]([^'"]+)['"]/.exec(versionText)?.[1];
+        const version = /\b(?:const|let|var)\s+engineVersion\s*=\s*['"]([^'"]+)['"]/.exec(versionText)?.[1];
         if (version !== options.creatorVersion)
             throw new KitError('UNAVAILABLE_CAPABILITY', 'Selected engine source does not match project Creator version');
         engine = version + ':' + hash(versionText);
         const owner: SourceOwner = { kind: 'engine', name: 'cocos', version, root: canonical };
         owners.push(owner);
-        for (const relative of options.enginePaths ?? ['cocos', 'exports']) {
+        for (const relative of options.enginePaths ?? adapter.enginePaths) {
             const lexical = path.resolve(canonical, relative);
             if (path.isAbsolute(relative) || !within(canonical, lexical))
                 throw new KitError('PATH_OUTSIDE_PROJECT', 'Engine source path escapes selected engine');
@@ -133,18 +135,8 @@ export async function captureSources(root: string, options: SourceOptions): Prom
     }
     for (const start of starts)
         await scan(start.path, start.owner, 0);
-    const projectPackage = files.get(path.join(root, 'package.json'));
-    if (projectPackage) {
-        let pkg: any;
-        try {
-            pkg = JSON.parse(projectPackage.text);
-        }
-        catch {
-            throw new KitError('SCHEMA_MISMATCH', 'Invalid project package.json');
-        }
-        if (typeof pkg.creator?.version === 'string' && pkg.creator.version !== options.creatorVersion)
-            throw new KitError('UNAVAILABLE_CAPABILITY', 'Captured project Creator version differs from selected source version');
-    }
+    const currentVersion=await detectCreatorVersion(root);
+    if(currentVersion&&currentVersion!==options.creatorVersion)throw new KitError('UNAVAILABLE_CAPABILITY','Project Creator version differs from selected source version; select its adapter and recapture');
     const revision = hash(JSON.stringify([...files.values()].map(f => [f.path, f.uri, f.hash, f.owner.version]).sort((a, b) => String(a[0]).localeCompare(String(b[0])))));
     return { root, options: structuredClone(options), files, revision, engine, bytes };
 }
