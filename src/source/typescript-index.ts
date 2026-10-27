@@ -8,7 +8,8 @@ export interface IndexedClass {
     id: string;
     name: string;
     registered: string[];
-    node: ts.ClassDeclaration;
+    node: ts.ClassDeclaration | ts.ObjectLiteralExpression;
+    nameNode?: ts.Node;
 }
 export class SourceIndex {
     readonly program: ts.Program;
@@ -66,9 +67,17 @@ export class SourceIndex {
                             }
                         }
                     const id = createHash('sha256').update(JSON.stringify([capture.revision, source.fileName, node.getStart(source)])).digest('hex').slice(0, 32);
-                    const item = { id, name: node.name.text, registered, node };
+                    const item = { id, name: node.name.text, registered, node, nameNode: node.name };
                     this.classes.push(item);
                     this.byId.set(id, item);
+                }
+                if(ts.isCallExpression(node)&&ts.isPropertyAccessExpression(node.expression)&&node.expression.expression.getText(source)==='cc'&&node.expression.name.text==='Class'&&node.arguments.length===1&&ts.isObjectLiteralExpression(node.arguments[0])){
+                    const object=node.arguments[0],named=object.properties.find(p=>ts.isPropertyAssignment(p)&&p.name.getText(source)==='name');
+                    const name=named&&ts.isPropertyAssignment(named)&&ts.isStringLiteralLike(named.initializer)?named.initializer.text:path.basename(source.fileName).replace(/\.[^.]+$/,'');
+                    const id=createHash('sha256').update(JSON.stringify([capture.revision,source.fileName,object.getStart(source)])).digest('hex').slice(0,32);
+                    const item={id,name,registered:[name],node:object,nameNode:ts.isVariableDeclaration(node.parent)?node.parent.name:undefined};
+                    this.classes.push(item);this.byId.set(id,item);
+                    this.warnings.push('Legacy cc.Class factory indexed statically; generated members, dynamic registration and inheritance may be unresolved.');
                 }
                 ts.forEachChild(node, visit);
             };
@@ -100,7 +109,7 @@ export class SourceIndex {
         return roots.length === 1 ? roots[0] : symbol;
     }
     member(id: string, name: string) {
-        const item = this.item(id), type = this.checker.getTypeAtLocation(item.node), classSymbol = this.checker.getSymbolAtLocation(item.node.name!), staticType = classSymbol ? this.checker.getTypeOfSymbolAtLocation(classSymbol, item.node) : undefined, symbol = this.checker.getPropertyOfType(type, name) || (staticType && this.checker.getPropertyOfType(staticType, name));
+        const item = this.item(id), type = this.checker.getTypeAtLocation(item.node), classSymbol = item.nameNode ? this.checker.getSymbolAtLocation(item.nameNode) : undefined, staticType = classSymbol ? this.checker.getTypeOfSymbolAtLocation(classSymbol, item.node) : undefined, symbol = this.checker.getPropertyOfType(type, name) || (staticType && this.checker.getPropertyOfType(staticType, name));
         if (!symbol)
             throw new KitError('NOT_FOUND', 'Member not found on class or base');
         const declarations = (symbol.getDeclarations() ?? []).filter(n => this.capture.files.has(n.getSourceFile().fileName));
@@ -112,7 +121,7 @@ export class SourceIndex {
     }
     method(id: string, name: string) {
         const { node } = this.member(id, name);
-        const initializer = ts.isPropertyDeclaration(node) ? node.initializer : undefined;
+        const initializer = ts.isPropertyDeclaration(node) || ts.isPropertyAssignment(node) ? node.initializer : undefined;
         const callable = ts.isMethodDeclaration(node) || ts.isMethodSignature(node) || !!(initializer && (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer)));
         const body = ts.isMethodDeclaration(node) ? node.body : initializer && (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer)) ? initializer.body : undefined;
         const loc = location(this.capture, node);

@@ -4,7 +4,7 @@ import { KitError } from '../contracts/errors.js';
 import { SourceIndex } from './typescript-index.js';
 export function references(index: SourceIndex, id: string, member?: string) {
     const item = index.item(id);
-    const symbol = index.canonical(member ? index.member(id, member).symbol : index.checker.getSymbolAtLocation(item.node.name!));
+    const symbol = index.canonical(member ? index.member(id, member).symbol : item.nameNode ? index.checker.getSymbolAtLocation(item.nameNode) : undefined);
     if (!symbol)
         return [];
     const result: any[] = [];

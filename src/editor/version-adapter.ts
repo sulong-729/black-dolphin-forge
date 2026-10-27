@@ -1,3 +1,4 @@
+import {creatorAdapter} from '../compatibility/versions.js';
 import { KitError } from '../contracts/errors.js';
 export interface EditorState {
     document: string;
@@ -16,7 +17,8 @@ export interface Handshake {
     state: EditorState;
 }
 export function qualify(hello: Handshake) {
-    if (hello.creatorVersion !== '3.7.3' || hello.engineVersion !== '3.7.3' || !['scene', 'registry', 'attributes'].every(key => hello.features[key] === true))
-        throw new KitError('UNAVAILABLE_CAPABILITY', 'Editor requires Creator/engine 3.7.3 and scene/registry/attributes probes');
-    return 'creator-3.7.3-read-v1';
+    const adapter = creatorAdapter(hello.creatorVersion);
+    if (hello.engineVersion !== adapter.version || !['scene', 'registry', 'attributes'].every(key => hello.features[key] === true))
+        throw new KitError('UNAVAILABLE_CAPABILITY', 'Editor requires matching Creator/engine versions and scene/registry/attributes probes');
+    return 'creator-'+adapter.version+'-read-v1';
 }

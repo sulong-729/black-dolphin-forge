@@ -1,6 +1,6 @@
-# P6 runtime observations
+# Runtime observations (0.10)
 
-Black Dolphin Forge 0.6 adds an **opt-in, read-only Cocos Creator 3.7.3 web-preview observer**. It runs in the runtime owner and captures after `Director.EVENT_AFTER_DRAW`. It never calls Widget alignment, Layout update, activates nodes, plays/stops animation/audio, changes physics, synthesizes input or pauses/steps gameplay.
+Black Dolphin Forge provides an **opt-in, read-only web-preview observer** with exact adapters for 3.7.3, 3.6.3, 2.1.3 and 2.4.15. Actual browser qualification remains 3.7.3; the added versions currently have contract/fixture coverage. It runs in the runtime owner and captures after `Director.EVENT_AFTER_DRAW`. It never calls Widget alignment, Layout update, activates nodes, plays/stops animation/audio, changes physics, synthesizes input or pauses/steps gameplay.
 
 This is observation coverage, not full P6 action coverage. P5.2 writes and all runtime actions without their own qualification remain unavailable. Native iOS/Android, Windows and production-release artifacts have not been qualified by a passing web preview.
 
@@ -80,3 +80,17 @@ Out-of-viewport findings are informational: a clipped/hidden popup bottom can be
 `npm run check` exercises contracts, domain readers, lifecycle/cancellation and regression boundaries. `node scripts/qualify-runtime.mjs` owns a new synthetic Creator project and child process; its browser phase records screenshots and geometry at 720×1280, 720×1920 and restored 720×1280. It never points the fixture at a game. Set `COCOS_CREATOR_EXECUTABLE` for another installation; actual Windows execution still needs separate evidence.
 
 Raw logs, tokens, fixture config, captures and screenshots stay in ignored local evidence directories. The versioned summary reports exact tested scope. Release exclusion end to end, native device actions/counters and unsupported domain actions remain NOT_RUN/unavailable.
+
+## Legacy Creator 2 preview
+
+A modern development browser can use the native ES-module bridge without assuming Creator 2 provides SystemJS:
+
+```javascript
+const bridge = await import(daemonUrl + '/v1/runtime/esm/bridge.js');
+const connection = await bridge.attachPreview({
+  cc: window.cc, url: daemonUrl, token: previewToken,
+  preview: true, build: false
+});
+```
+
+Use the origin-scoped preview token from an explicit local permit, never the daemon token. Attach only to an opted-in development preview. The adapter verifies its engine version against the project-bound permit. Creator 2 UI geometry comes from Node, not UITransform; legacy 3D physics/backend velocity and camera projection are not qualified. Browser qualification of this bootstrap is NOT_RUN; it is not automatically injected into projects or release artifacts.

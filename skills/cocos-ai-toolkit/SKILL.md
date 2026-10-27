@@ -31,7 +31,7 @@ Do not assume the toolkit always uses fewer tokens or is faster than an optimize
 
 Start the user daemon using the installed CLI, then run its `mcp` command through your MCP client. Core requires Node22.16+; Python is needed only for build workers. Local token/endpoint files are private; never paste them into browser bootstrap or prompts. Web preview has a separate short-lived scoped permit.
 
-Register a project through local CLI `project register <absolute-root>`; choose its returned ID. MCP tools accept a request wrapper:
+Register a project through local CLI `project register <absolute-root>`; choose its returned ID. The kit reads current metadata and automatically selects 3.7.3, 3.6.3, 2.1.3 or 2.4.15. Do not pass a guessed version or open a project with a newer Creator to make it load. Creator 2 scenes use `.fire`; Creator 3 scenes use `.scene`. Conflicts/unknown versions require inspection. MCP tools accept a request wrapper:
 
 ```json
 {"request":{"formatVersion":1,"requestId":"capture-1","operation":"graph.capture","projectId":"<registered-id>","source":"disk","params":{"path":"assets/UI.prefab"}}}
@@ -45,7 +45,7 @@ Use Source Navigator when definitions, references, schema or bindings need its m
 
 ## Change through the owner
 
-Disk, Editor and runtime namespaces are separate. A disk graph handle cannot authorize an Editor mutation. Discover live Editor sessions, select the exact project/session and current revision, then use the Editor read operations before proposing changes.
+Disk, Editor and runtime namespaces are separate. A disk graph handle cannot authorize an Editor mutation. For explicit bridge installation use `editor install <project-id>`: the kit chooses `packages` for 2.x or `extensions` for 3.x without overwriting an existing bridge. New Editor adapters are read-only; mutations remain qualified only on 3.7.3. Discover live Editor sessions, select the exact project/session and current revision, then use the Editor read operations before proposing changes.
 
 `cocos_propose` supports qualified `editor.propose` and rollback proposals; `cocos_apply` supports `editor.apply`. The kit enforces exact local hash approval (`approve <proposal-id> <reviewed-hash>`). A client `approved:true` flag grants nothing. Respect the user's actual task authorization when using the local host channel. Preserve returned checkpoints and explicit indeterminate outcomes; never blindly replay uncertain writes.
 
@@ -55,12 +55,12 @@ Only the documented plain-scene property/reference/rename adapters are qualified
 
 `runtime.capture` requires an opted-in web preview session and `source: "runtime"`. `runtime.query`/`ui.diagnose` inspect retained frames; inactive nodes stay inactive. Frame/window and viewport metadata establish observation scope. Native counters, automatic source correspondence and unqualified runtime actions remain unavailable.
 
-For builds: local `build configure <project-id> <profile.json>`, `build.doctor`, `build.propose`, exact hash approval, then `cocos_job` → `job.start/status/cancel`. Only the qualified Creator3.7.3 Web Mobile pipeline is available. Use `cocos_artifact` → `job.artifact.read` for bounded logs/manifests. Build success, browser launch, visuals, gameplay and native-device success are separate checks.
+For builds: local `build configure <project-id> <profile.json>`, `build.doctor`, `build.propose`, exact hash approval, then `cocos_job` → `job.start/status/cancel`. Actual macOS Web Mobile pipeline qualification covers 3.7.3 and 3.6.3. Creator 2.x builds are experimental: 2.4.15 export failed on the tested Mac and 2.1.3 is not installed for real testing. Omit Creator paths/version to discover the exact installed version from project metadata; do not substitute another engine. Read the compatibility matrix for layer-specific qualification. Use `cocos_artifact` → `job.artifact.read` for bounded logs/manifests. Build success, browser launch, visuals, gameplay and native-device success are separate checks.
 
 After restart, interrupted jobs do not replay. Inspect old workers/output before local `job reconcile <job-id> <reconciliation-hash>`. A new proposal is needed for changed source/engine/profile. The toolkit does not reuse build outputs; Creator may use internal caches.
 
 ## Scope and setup
 
-Current Windows support consists of portable paths/contracts and service plan generation; actual Windows installation, login/reboot and native execution are unqualified. OS service installation is a separate explicit local command, not an automatic effect of reading a project or using this skill. Preserve user state during package upgrade/uninstall.
+Current Windows support includes portable paths/contracts, service controls and ZIP/CMD installer; actual Windows installation, login/reboot and native execution are unqualified. OS service installation is a separate explicit local command, not an automatic effect of reading a project or using this skill. Preserve user state during package upgrade/uninstall.
 
 Consult the bundled [operations](references/docs/operations.md), [compatibility](references/docs/compatibility.md), [runtime](references/docs/runtime.md) or [build](references/docs/build.md) only for the workflow you need. Do not claim whole-engine write coverage, 100% ID elimination, guaranteed crash prevention or universal token/performance savings.

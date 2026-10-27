@@ -2,7 +2,7 @@
 
 A standalone foundation for AI ↔ toolkit ↔ Cocos. Core language: TypeScript/Node.js. Python workers and optional Go/C++ workers share versioned contracts; no native worker is needed to run the current core.
 
-**Platform target: macOS and Windows.** Core tests have been run on macOS. A Windows CI job is provided but has not been run or qualified here. Creator 3.7.3 has experimental Editor and opt-in web preview bridges. Version0.8 adds portable packaging and explicit user-service plans; actual OS login/reboot qualification remains pending.
+**Platform target: macOS and Windows.** Core tests have been run on macOS. A Windows CI job is provided but has not been run or qualified here. Exact adapters target Creator 3.7.3, 3.6.3, 2.1.3 and 2.4.15 with automatic project-version detection. Qualification differs by layer/version; see [compatibility](docs/compatibility.md). Version0.8 adds portable packaging and explicit user-service plans; actual OS login/reboot qualification remains pending.
 
 ## Install and run
 
@@ -80,7 +80,7 @@ Snapshots are immutable with sliding 5-minute TTL, LRU 10 entries and 128 MiB st
 
 ## Phase 2: Cocos source graphs
 
-`graph.capture` reads Creator **3.7.3 source** `.prefab`/`.scene` files. Native storage identities stay inside a server-owned session. The AI view uses paths, snapshot-scoped handles, typed properties and asset references; user data such as `id`, `uuid` and `fileId` stays unchanged. Compiled/build serialization and live runtime snapshots are excluded.
+`graph.capture` reads Creator **3.7.3/3.6.3 source** `.prefab`/`.scene` and **2.1.3/2.4.15 source** `.prefab`/`.fire` files using the detected project adapter. Native storage identities stay inside a server-owned session. The AI view uses paths, snapshot-scoped handles, typed properties and asset references; user data such as `id`, `uuid` and `fileId` stays unchanged. Compiled/build serialization and live runtime snapshots are excluded.
 
 Discover schemas without dumping engine metadata:
 

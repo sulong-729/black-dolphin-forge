@@ -49,7 +49,7 @@ export function createDispatcher(state: string, identity: {
     registerGraphs(registry,projects,snapshots,formatter);
     registerSource(registry,projects,snapshots,formatter);
     registerEditor(registry,projects,snapshots,sessions);
-    registerMutations(registry,sessions,state,identity.instanceId);
+    registerMutations(registry,sessions,state,identity.instanceId,projects);
     registerRuntime(registry,projects,snapshots,formatter,runtime);
     async function facade(name: string, input: any) {
         const raw = input && Object.hasOwn(input,'request') ? input.request : createRequest('capabilities.describe', input?.operation ? {operation:input.operation} : {});

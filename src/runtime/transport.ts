@@ -1,8 +1,9 @@
+import {creatorVersions} from '../compatibility/versions.js';
 import {z} from 'zod';import type {IncomingMessage,ServerResponse} from 'node:http';import {readFile} from 'node:fs/promises';import {fileURLToPath} from 'node:url';
 import {KitError,errorInfo} from '../contracts/errors.js';import {RuntimeSessions} from './client.js';
 const lease={session:z.string().uuid(),lease:z.string().length(64)};
 const message=z.discriminatedUnion('action',[
- z.object({action:z.literal('connect'),instance:z.string().min(1).max(128),epoch:z.string().min(1).max(128),scene:z.string().min(1).max(4096),frame:z.number().int().nonnegative(),engineVersion:z.literal('3.7.3'),preview:z.literal(true),build:z.literal(false),features:z.array(z.enum(['ui','animation','render','physics','audio','input'])).max(6)}).strict(),
+ z.object({action:z.literal('connect'),instance:z.string().min(1).max(128),epoch:z.string().min(1).max(128),scene:z.string().min(1).max(4096),frame:z.number().int().nonnegative(),engineVersion:z.enum(creatorVersions),preview:z.literal(true),build:z.literal(false),features:z.array(z.enum(['ui','animation','render','physics','audio','input'])).max(6)}).strict(),
  z.object({action:z.literal('poll'),...lease,epoch:z.string().min(1).max(128),scene:z.string().min(1).max(4096),frame:z.number().int().nonnegative()}).strict(),
  z.object({action:z.literal('respond'),...lease,id:z.string().uuid(),epoch:z.string().min(1).max(128),data:z.unknown().optional(),error:z.string().max(500).optional()}).strict(),
  z.object({action:z.literal('disconnect'),...lease}).strict()
@@ -11,7 +12,7 @@ const modules=new Set(['bridge.js','snapshot.js','identity.js','domains/ui.js','
 export async function runtimeHttp(runtime:RuntimeSessions,req:IncomingMessage,res:ServerResponse){
  const send=(status:number,value:unknown)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify(value));};
  try{
-  if(req.method==='GET'&&req.url?.startsWith('/v1/runtime/modules/')){const name=req.url.slice('/v1/runtime/modules/'.length);if(!modules.has(name))throw new KitError('NOT_FOUND','Runtime module not found');const content=await readFile(fileURLToPath(new URL('../preview-system/'+name,import.meta.url)));res.writeHead(200,{'Content-Type':'text/javascript','Cache-Control':'no-store','Access-Control-Allow-Origin':'*','X-Content-Type-Options':'nosniff'});res.end(content);return;}
+  if(req.method==='GET'&&(req.url?.startsWith('/v1/runtime/modules/')||req.url?.startsWith('/v1/runtime/esm/'))){const esm=req.url.startsWith('/v1/runtime/esm/'),name=req.url.slice((esm?'/v1/runtime/esm/':'/v1/runtime/modules/').length);if(!modules.has(name))throw new KitError('NOT_FOUND','Runtime module not found');const content=await readFile(fileURLToPath(new URL((esm?'../preview/':'../preview-system/')+name,import.meta.url)));res.writeHead(200,{'Content-Type':'text/javascript','Cache-Control':'no-store','Access-Control-Allow-Origin':'*','X-Content-Type-Options':'nosniff'});res.end(content);return;}
   if(req.url!=='/v1/runtime')throw new KitError('NOT_FOUND','Preview route not found');
   const origin=req.headers.origin;if(typeof origin!=='string'||!runtime.allowsOrigin(origin))throw new KitError('UNAUTHORIZED','Origin has no preview permission');
   res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Vary','Origin');
